@@ -13,57 +13,61 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\keypress">
-      <UniqueIdentifier>{598e36ff-9322-4330-89e3-eb8134297f94}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="object_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="char_handle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\key_press1.jpg">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-A%402x.png">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-B%402x.png">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-C%402x.png">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-D%402x.png">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-S%402x.png">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-A_2x.bmp">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-B_2x.bmp">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-C_2x.bmp">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-D_2x.bmp">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
-    <Image Include="resources\ranking-S_2x.bmp">
-      <Filter>Resource Files\keypress</Filter>
-    </Image>
     <Image Include="resources\grass_background.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\main_char_sprite_sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\Tree_SpriteSheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Tree_SpriteSheet_Outlined.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="global_header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="char_handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="prefix.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

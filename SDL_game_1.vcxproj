@@ -148,22 +148,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object_type.cpp" />
+    <ClCompile Include="func.cpp" />
+    <ClCompile Include="main_window.cpp" />
+    <ClCompile Include="char_handle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png" />
-    <Image Include="resources\key_press1.jpg" />
     <Image Include="resources\main_char_sprite_sheet.png" />
-    <Image Include="resources\ranking-A%402x.png" />
-    <Image Include="resources\ranking-A_2x.bmp" />
-    <Image Include="resources\ranking-B%402x.png" />
-    <Image Include="resources\ranking-B_2x.bmp" />
-    <Image Include="resources\ranking-C%402x.png" />
-    <Image Include="resources\ranking-C_2x.bmp" />
-    <Image Include="resources\ranking-D%402x.png" />
-    <Image Include="resources\ranking-D_2x.bmp" />
-    <Image Include="resources\ranking-S%402x.png" />
-    <Image Include="resources\ranking-S_2x.bmp" />
-    <Image Include="test1.bmp" />
+    <Image Include="resources\Tree_SpriteSheet.png" />
+    <Image Include="resources\Tree_SpriteSheet_Outlined.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="func.h" />
+    <ClInclude Include="char_handle.h" />
+    <ClInclude Include="main_window.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="object_type.h" />
+    <ClInclude Include="global_header.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="prefix.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

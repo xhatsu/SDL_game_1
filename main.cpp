@@ -1,167 +1,4 @@
-#include<SDL.h>
-#include<stdio.h>
-#include<string>
-#include<SDL_image.h>
-#include <utility>
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-int speed = 2;
-int charSpriteDelay = 0;
-int charSpriteDelayRate = 11;
-double MovementDelayRate = 1.7;
-//enumerations for easy array declare
-enum DirectionEnum {
-	UP = 0,
-	DOWN,
-	LEFT,
-	RIGHT,
-	UP_LEFT,
-	UP_RIGHT,
-	DOWN_LEFT,
-	DOWN_RIGHT,
-	DIRECTION_TOTAL
-};
-bool Direction[DIRECTION_TOTAL];
-void correctDirection() {
-	if (Direction[UP] == true && Direction[LEFT] == true) {
-		Direction[UP_LEFT] = true;
-	}
-	if (Direction[DOWN] == true && Direction[LEFT] == true) {
-		Direction[DOWN_LEFT] = true;
-	}
-	if (Direction[UP] == true && Direction[RIGHT] == true) {
-		Direction[UP_RIGHT] = true;
-	}
-	if (Direction[DOWN] == true && Direction[RIGHT] == true) {
-		Direction[DOWN_RIGHT] = true;
-	}
-
-
-	if (Direction[UP] == false || Direction[LEFT] == false) {
-		Direction[UP_LEFT] = false;
-	}
-	if (Direction[DOWN] == false || Direction[LEFT] == false) {
-		Direction[DOWN_LEFT] = false;
-	}
-	if (Direction[UP] == false || Direction[RIGHT] == false) {
-		Direction[UP_RIGHT] = false;
-	}
-	if (Direction[DOWN] == false || Direction[RIGHT] == false) {
-		Direction[DOWN_RIGHT] = false;
-	}
-}
-//image for each event
-SDL_Texture* grass_background = NULL;
-//main window define
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
-SDL_Texture* texture = NULL;
-SDL_Texture* _main_char = NULL;
-SDL_Rect _main_char_rect;
-SDL_Rect char_location_rect;
-struct object {
-	SDL_Rect object;
-	void loadChunk(SDL_Rect a, SDL_Texture* object_Texture) {
-		SDL_RenderCopy(renderer, object_Texture, NULL, &a);
-	}
-};
-//load image func
-SDL_Texture* loadTexture(std::string path) {
-	//define optimized surface
-	SDL_Texture* newTexture = NULL;
-
-	//load surface from image
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == NULL) {
-		printf("Error load image to surface, IMG_Error: \n", IMG_GetError());
-	}
-	else
-	{
-		//create texture from surface
-		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (newTexture == NULL) {
-			printf("cannot cannot create texture from surface", SDL_GetError());
-		}
-		SDL_FreeSurface(loadedSurface);
-	}
-	return newTexture;
-}
-//INITIALIZE
-bool init() {
-	bool success_state = true;
-	//initialize
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("SDL could not initialize. SDL_ERROR: ", SDL_GetError());
-		success_state = false;
-	}
-	else {
-		window = SDL_CreateWindow("SDL_game_1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (window == NULL) {
-			printf("Window could not be created SDL_Error:\n", SDL_GetError());
-			success_state = false;
-		}
-		else {
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-			if (renderer == NULL) {
-				printf("renderer cannot be created", SDL_GetError());
-			}
-			else {
-				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-				int imgFlags = IMG_INIT_PNG;
-				if (!(IMG_Init(imgFlags) & imgFlags))
-				{
-					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-					success_state = false;
-				}
-			}
-
-		}
-
-	}
-	return success_state;
-}
-//load resources
-bool loadMedia() {
-	bool success_state = true;
-	//load all image first
-	//default
-	_main_char = loadTexture("resources/main_char_sprite_sheet.png");
-	if (_main_char == NULL) {
-		printf("error loading main char");
-		success_state = false;
-	}
-
-	grass_background = loadTexture("resources/grass_background.png");
-	if (grass_background == NULL) {
-		printf("error loading background");
-		success_state = false;
-	}
-	return success_state;
-}
-//close
-void close_window() {
-	SDL_DestroyTexture(texture);
-	SDL_DestroyWindow(window);
-	window = NULL;
-	renderer = NULL;
-	printf("closed window");
-	SDL_Quit();
-	IMG_Quit();
-}
-//main
-void updateChar(int delay) {
-	if (_main_char_rect.x == 0) {
-		_main_char_rect.x = 64;
-	}
-	if (delay % charSpriteDelayRate == 0) {
-		_main_char_rect.x = _main_char_rect.x + 64;
-	}
-	charSpriteDelay++;
-	if (_main_char_rect.x >= 576) {
-		_main_char_rect.x = 64;
-	}
-	SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
-}
+#include "main.h"
 struct Chunk {
 
 	SDL_Rect background_rect;
@@ -344,7 +181,7 @@ struct Chunk {
 };
 int main(int argc, char* args[]) {
 	if (init() == true) {
-		if (loadMedia() == true) {
+		if (loadGlobalMedia() == true) {
 			int temp = 0;
 			Chunk a;
 			// rect initialize
@@ -417,12 +254,16 @@ int main(int argc, char* args[]) {
 			}
 			//test
 			int distance = 0;
-			object BGC1;
-			BGC1.object.x = char_location_rect.x;
-			BGC1.object.y = char_location_rect.y;
-			BGC1.object.w = 320;
-			BGC1.object.h = 320;
-			//BGC1.loadChunk(BGC1.object, grass_background);
+			object tree;
+			tree.object_cordinate.x = char_location_rect.x;
+			tree.object_cordinate.y = char_location_rect.y;
+			tree.object_cordinate.w = 82;
+			tree.object_cordinate.h = 128;
+			tree.object_texture_rect.x = 0;
+			tree.object_texture_rect.y = 0;
+			tree.object_texture_rect.w = 82;
+			tree.object_texture_rect.h = 128;
+			tree.loadTextureMedia();
 			//test
 			SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
 			SDL_RenderPresent(renderer);
@@ -439,7 +280,10 @@ int main(int argc, char* args[]) {
 						if (event_input.type == SDL_KEYDOWN) {
 							if (key_state[SDL_SCANCODE_L]) {
 								distance = 0;
-							}                                                   
+							}
+							if (key_state[SDL_SCANCODE_T]) {
+								tree.loadObject(tree.object_cordinate,renderer);
+							}
 							if (key_state[SDL_SCANCODE_A]) {
 								Direction[LEFT] = true;
 							}
@@ -521,8 +365,7 @@ int main(int argc, char* args[]) {
 				}
 				printf("%d\n",distance);
 				SDL_RenderPresent(renderer);
-				SDL_UpdateWindowSurface(window);
-				
+				SDL_UpdateWindowSurface(main_window);
 				int delta = SDL_GetTicks() - start_loop;
 				if (delta < desiredDelta) {
 					SDL_Delay(desiredDelta - delta);
@@ -530,7 +373,6 @@ int main(int argc, char* args[]) {
 			}
 
 		}
-
 		else {
 			printf("Cannot load media");
 		}
