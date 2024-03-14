@@ -7,4 +7,4 @@ extern SDL_Renderer* renderer;
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 void close_window();
-bool init();
+bool InitWindow();

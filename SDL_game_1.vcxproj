@@ -152,6 +152,8 @@
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main_window.cpp" />
     <ClCompile Include="char_handle.cpp" />
+    <ClCompile Include="background.cpp" />
+    <ClCompile Include="loop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png" />
@@ -162,6 +164,10 @@
   <ItemGroup>
     <ClInclude Include="func.h" />
     <ClInclude Include="char_handle.h" />
+    <ClInclude Include="background.h" />
+    <ClInclude Include="Direction.h" />
+    <ClInclude Include="loop.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="main_window.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="object_type.h" />

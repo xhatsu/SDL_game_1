@@ -1,7 +1,8 @@
 #include"main_window.h"
-bool init() {
+bool InitWindow() {
 	bool success_state = true;
 	//initialize
+
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("SDL could not initialize. SDL_ERROR: ", SDL_GetError());
 		success_state = false;
