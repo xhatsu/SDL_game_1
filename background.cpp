@@ -1,5 +1,5 @@
 #include"background.h"
-	void Chunk::renderChunk() {
+	void backGround::renderChunk() {
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect);
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect_UP);
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect_DOWN);
@@ -11,7 +11,7 @@
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect_UP_RIGHT);
 	}
 
-	void Chunk::stickChunk() {
+	void backGround::stickChunk() {
 		background_rect_UP.y = background_rect.y - 1440;
 		background_rect_LEFT.y = background_rect.y;
 		background_rect_RIGHT.y = background_rect.y;
@@ -31,7 +31,7 @@
 		background_rect_DOWN_RIGHT.x = background_rect_DOWN.x + 2560;
 	}
 
-	void Chunk::moveChunk(int direction) {
+	void backGround::moveChunk(int direction) {
 		switch (direction) {
 		case DOWN:
 			background_rect.y -= speed;
@@ -82,7 +82,7 @@
 		}
 	}
 
-	void Chunk::updateChunk(unsigned int state) {
+	void backGround::updateChunk(unsigned int state) {
 		switch (state) {
 		case UP:
 			if (background_rect.y < -720) {

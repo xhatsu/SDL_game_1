@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map_process.cpp" />
     <ClCompile Include="object_type.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main_window.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="main_window.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="map_process.h" />
     <ClInclude Include="object_type.h" />
     <ClInclude Include="global_header.h" />
   </ItemGroup>

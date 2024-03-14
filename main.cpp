@@ -1,5 +1,6 @@
 #include "main.h"
 
+
 int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
 		if (loadGlobalMedia() == true) {			
@@ -16,14 +17,18 @@ int main(int argc, char* args[]) {
 				char_location_rect.w = 64;
 				char_location_rect.h = 64;
 			}
-			//render first time
+			middle_screen.x = SCREEN_WIDTH / 2;
+			middle_screen.y = SCREEN_HEIGHT / 2;
+			charCol.x = 0;
+			charCol.y = 0;
 			SDL_RenderCopy(renderer, grass_background, NULL, &a.background_rect);
 			SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
-			SDL_RenderPresent(renderer);
+			//test
 			
+			//test
 			//start loop
 			loop();
-
+			
 		}
 		else {
 			printf("Cannot load media");

@@ -1,7 +1,9 @@
 #include"loop.h"
 void loop() {
+	SDL_RenderPresent(renderer);
+	object tree(100, 100);
+	addObject(objectListBottom,tree);
 	SDL_Event event_input;
-	bool quit = false;
 	while (quit == false) {
 		const Uint8* key_state = SDL_GetKeyboardState(NULL);
 		int start_loop = SDL_GetTicks64();
@@ -12,6 +14,11 @@ void loop() {
 				if (event_input.type == SDL_KEYDOWN) {
 					if (key_state[SDL_SCANCODE_L]) {
 						distance = 0;
+						charCol.x = 0;
+						charCol.y = 0;
+					}
+					if (key_state[SDL_SCANCODE_T]) {
+						
 					}
 					if (key_state[SDL_SCANCODE_A]) {
 						Direction[LEFT] = true;
@@ -63,28 +70,36 @@ void loop() {
 				_main_char_rect.y = 576;
 				updateChar(charSpriteDelay);
 				distance += speed;
+				charCol.x-=speed;
 			}
 			if (Direction[RIGHT]) {
 				a.updateChunk(RIGHT);
 				_main_char_rect.y = 704;
 				updateChar(charSpriteDelay);
 				distance += speed;
+				charCol.x+=speed;
 			}
 			if (Direction[UP]) {
 				a.updateChunk(UP);
 				_main_char_rect.y = 512;
 				updateChar(charSpriteDelay);
 				distance += speed;
+				charCol.y-=speed;
 			}
 			if (Direction[DOWN]) {
 				a.updateChunk(DOWN);
 				_main_char_rect.y = 640;
 				updateChar(charSpriteDelay);
 				distance += speed;
+				charCol.y+=speed;
 			}
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 				charSpriteDelayRate -= 2;
 			}
+			loadObjectList(objectListBottom);
+			SDL_RenderPresent(renderer);
+			SDL_UpdateWindowSurface(main_window);
+			
 		}
 		else if (moveState == false) {
 
@@ -92,9 +107,7 @@ void loop() {
 		if (charSpriteDelay > 99) {
 			charSpriteDelay = 0;
 		}
-		printf("%d\n", distance);
-		SDL_RenderPresent(renderer);
-		SDL_UpdateWindowSurface(main_window);
+		
 		int delta = SDL_GetTicks() - start_loop;
 		if (delta < desiredDelta) {
 			SDL_Delay(desiredDelta - delta);

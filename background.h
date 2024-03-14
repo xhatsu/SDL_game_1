@@ -4,7 +4,7 @@
 extern SDL_Renderer* renderer;
 extern SDL_Texture* grass_background;
 extern int speed;
-class Chunk {
+class backGround {
 public:
 	SDL_Rect background_rect;
 	SDL_Rect background_rect_DOWN;
@@ -15,7 +15,7 @@ public:
 	SDL_Rect background_rect_DOWN_LEFT;
 	SDL_Rect background_rect_UP_RIGHT;
 	SDL_Rect background_rect_DOWN_RIGHT;
-	Chunk() {
+	backGround() {
 			background_rect.x = 0;
 			background_rect.y = 0;
 			background_rect.w = 2560;
