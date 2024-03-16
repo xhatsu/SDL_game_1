@@ -39,6 +39,9 @@
     <ClCompile Include="map_process.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render_process.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png">
@@ -88,10 +91,18 @@
     <ClInclude Include="map_process.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="render_process.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="prefix.txt">
       <Filter>Source Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mapData.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

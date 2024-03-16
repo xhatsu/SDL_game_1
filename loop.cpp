@@ -1,8 +1,8 @@
 #include"loop.h"
 void loop() {
 	SDL_RenderPresent(renderer);
-	object tree(100, 100);
-	addObject(objectListBottom,tree);
+	mapProcess map1;
+	map1.getObjectListFromFile(objectListBottom);
 	SDL_Event event_input;
 	while (quit == false) {
 		const Uint8* key_state = SDL_GetKeyboardState(NULL);
@@ -96,13 +96,14 @@ void loop() {
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 				charSpriteDelayRate -= 2;
 			}
-			loadObjectList(objectListBottom);
+			map1.loadObjectList(objectListBottom);
 			SDL_RenderPresent(renderer);
 			SDL_UpdateWindowSurface(main_window);
 			
 		}
 		else if (moveState == false) {
-
+			map1.loadObjectList(objectListBottom);
+			SDL_RenderPresent(renderer);
 		}
 		if (charSpriteDelay > 99) {
 			charSpriteDelay = 0;

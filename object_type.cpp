@@ -1,5 +1,5 @@
 #include"object_type.h"
-object::object(int x,int y) {
+object::object(int x, int y) {
 	ObjCol.x = x;
 	ObjCol.y = y;
 	objectRenderCordinate.w = 64;
@@ -11,7 +11,6 @@ object::object(int x,int y) {
 	if (!loadTextureMedia()) {
 		printf("cannot load texture media");
 	}
-	setObjRenderCordinate();
 }
 bool object::loadTextureMedia() {
 	bool success_state = true;
@@ -47,9 +46,7 @@ void object::moveObject(int direction) {
 void object::setObjRenderCordinate() {
 	int prefix_X = ObjCol.x - charCol.x;
 	int prefix_Y = ObjCol.y - charCol.y;
-	objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w/2;
-	objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h/2;
+	objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w / 2;
+	objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h / 2;
 }
-	
-	
 

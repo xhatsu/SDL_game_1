@@ -3,7 +3,12 @@
 
 int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
-		if (loadGlobalMedia() == true) {			
+		if (loadGlobalMedia() == true) {		
+			srand((int)time(0));
+			int seed = (rand()+176234) * 3*(rand()%5)+174;
+			printf("%d", seed);
+			render_process render_map1(seed, 1000, 10, "mapData.json");
+			render_map1.render(seed);
 			SDL_RenderClear(renderer);
 			SDL_RenderPresent(renderer);			
 			//main char texture initialize
