@@ -62,5 +62,10 @@ bool loadGlobalMedia() {
 		printf("error loading background");
 		success_state = false;
 	}
+	mainChar_shadow = loadTexture("resources/mainChar_shadow.png");
+	if (mainChar_shadow == NULL) {
+		printf("error loading char shadow");
+		success_state = false;
+	}
 	return success_state;
 }

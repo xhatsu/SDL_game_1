@@ -5,8 +5,7 @@
 #include<vector>
 using namespace nlohmann::json_abi_v3_11_3;
 extern SDL_Renderer* renderer;
-extern std::vector<object> objectListTop;
-extern std::vector<object> objectListBottom;
+extern std::vector<object> objectList;
 class mapProcess {
 public:
 	void getObjectListFromFile(std::vector<object> &a);

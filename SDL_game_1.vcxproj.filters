@@ -56,6 +56,12 @@
     <Image Include="resources\Tree_SpriteSheet_Outlined.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\mainChar_shadow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Tree.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global_header.h">

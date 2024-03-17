@@ -8,6 +8,7 @@ extern SDL_Texture* grass_background ;
 extern SDL_Texture* tree_texture_1 ;
 extern SDL_Texture* _main_char;
 extern SDL_Renderer* renderer;
+extern SDL_Texture* mainChar_shadow;
 extern bool Direction[DIRECTION_TOTAL];
 void correctDirection();
 SDL_Texture* loadTexture(std::string path);

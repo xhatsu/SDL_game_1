@@ -1,12 +1,27 @@
 #include"loop.h"
+bool ColYSort(object a, object b) {
+	return (a.objectRenderCordinate.y < b.objectRenderCordinate.y);
+}
 void loop() {
-	SDL_RenderPresent(renderer);
 	mapProcess map1;
-	map1.getObjectListFromFile(objectListTop);
+	map1.getObjectListFromFile(objectList);
+	std::sort(objectList.begin(),objectList.end(),ColYSort);
+	SDL_Rect shadow_rect;
+	shadow_rect.w = char_location_rect.w;
+	shadow_rect.h = char_location_rect.h;
+	shadow_rect.x = char_location_rect.x;
+	shadow_rect.y = char_location_rect.y + 5;
+	a.updateChunk(-1);
+	_main_char_rect.x = 512;
+	//render first time
+	SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
+	SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+	//input handle
+	bool WaitForInput = false;
 	SDL_Event event_input;
+	const Uint8* key_state = SDL_GetKeyboardState(NULL);
+	int start_loop = SDL_GetTicks64();
 	while (quit == false) {
-		const Uint8* key_state = SDL_GetKeyboardState(NULL);
-		int start_loop = SDL_GetTicks64();
 		while (SDL_PollEvent(&event_input)) {
 			if (event_input.type == SDL_QUIT) { quit = true; }
 			if (true) {
@@ -57,7 +72,9 @@ void loop() {
 				correctDirection();
 			}
 		}
+		//render
 		if (moveState == true) {
+			WaitForInput = false;
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 				SDL_Delay(int(5 * MovementDelayRate));
 				charSpriteDelayRate += 2;
@@ -68,6 +85,7 @@ void loop() {
 			if (Direction[LEFT]) {
 				a.updateChunk(LEFT);
 				_main_char_rect.y = 576;
+				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 				updateChar(charSpriteDelay);
 				distance += speed;
 				charCol.x-=speed;
@@ -75,6 +93,7 @@ void loop() {
 			if (Direction[RIGHT]) {
 				a.updateChunk(RIGHT);
 				_main_char_rect.y = 704;
+				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 				updateChar(charSpriteDelay);
 				distance += speed;
 				charCol.x+=speed;
@@ -82,13 +101,15 @@ void loop() {
 			if (Direction[UP]) {
 				a.updateChunk(UP);
 				_main_char_rect.y = 512;
+				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 				updateChar(charSpriteDelay);
 				distance += speed;
 				charCol.y-=speed;
 			}
-			if (Direction[DOWN]) {
+			if (Direction[DOWN])	 {
 				a.updateChunk(DOWN);
 				_main_char_rect.y = 640;
+				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 				updateChar(charSpriteDelay);
 				distance += speed;
 				charCol.y+=speed;
@@ -98,11 +119,16 @@ void loop() {
 			}
 		}
 		else if (moveState == false) {
+			a.updateChunk(-1);
+			_main_char_rect.x = 512;
+			SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
+			WaitForInput = true;
+			SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
 		}
 		if (charSpriteDelay > 99) {
 			charSpriteDelay = 0;
 		}
-		map1.loadObjectList(objectListTop);
+		map1.loadObjectList(objectList);
 		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(main_window);
 		int delta = SDL_GetTicks() - start_loop;

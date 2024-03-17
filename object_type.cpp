@@ -4,12 +4,12 @@ object::object(int x, int y) {
 	ObjCol.y = y;
 	printf("%d\n", ObjCol.x);
 	printf("%d\n", ObjCol.y);
-	objectRenderCordinate.w = 64;
-	objectRenderCordinate.h = 64;
+	object_texture_rect.w = 128;
+	object_texture_rect.h = 192;
+	objectRenderCordinate.w = object_texture_rect.w;
+	objectRenderCordinate.h = object_texture_rect.h;
 	object_texture_rect.x = 0;
 	object_texture_rect.y = 0;
-	object_texture_rect.w = 64;
-	object_texture_rect.h = 64;
 	if (!loadTextureMedia()) {
 		printf("cannot load texture media");
 	}
@@ -17,7 +17,7 @@ object::object(int x, int y) {
 }
 bool object::loadTextureMedia() {
 	bool success_state = true;
-	object_texture = loadTexture("resources/Tree_SpriteSheet.png");
+	object_texture = loadTexture("resources/Tree.png");
 	if (object_texture == NULL) {
 		printf("error loading object texture");
 		success_state = false;

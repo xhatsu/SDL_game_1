@@ -4,6 +4,7 @@
 #include"background.h"
 #include"map_process.h"
 #include"char_handle.h"
+#include<algorithm>
 extern void correctDirection();
 extern void updateChar(int charSpriteDelay);
 extern SDL_Window* main_window;

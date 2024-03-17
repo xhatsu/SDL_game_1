@@ -3,6 +3,7 @@
 #include<SDL_image.h>
 #include<string>
 #include"Direction.h"
+#include <algorithm>
 extern SDL_Rect char_location_rect;
 extern SDL_Point middle_screen;
 extern SDL_Point charCol;
