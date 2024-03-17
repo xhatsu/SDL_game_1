@@ -4,10 +4,10 @@
 int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
 		if (loadGlobalMedia() == true) {		
-			srand((int)time(0));
+			srand((int)time(NULL));
 			int seed = (rand()+176234) * 3*(rand()%5)+174;
 			printf("%d", seed);
-			render_process render_map1(seed, 1000, 10, "mapData.json");
+			render_process render_map1(seed, 500, 10, "mapData.json");
 			render_map1.render(seed);
 			SDL_RenderClear(renderer);
 			SDL_RenderPresent(renderer);			
@@ -28,8 +28,6 @@ int main(int argc, char* args[]) {
 			charCol.y = 0;
 			SDL_RenderCopy(renderer, grass_background, NULL, &a.background_rect);
 			SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
-			//test
-			
 			//test
 			//start loop
 			loop();

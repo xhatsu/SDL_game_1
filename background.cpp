@@ -10,7 +10,6 @@
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect_UP_LEFT);
 		SDL_RenderCopy(renderer, grass_background, NULL, &background_rect_UP_RIGHT);
 	}
-
 	void backGround::stickChunk() {
 		background_rect_UP.y = background_rect.y - 1440;
 		background_rect_LEFT.y = background_rect.y;

@@ -10,7 +10,7 @@ bool mapProcess::addObject(std::vector<object> &a,object target) {
 void mapProcess::loadObjectList(std::vector<object> &a) {
 	for (int i = 0; i < a.size(); i++) {
 		a[i].setObjRenderCordinate();
-		a[i].loadObject(renderer);
+		SDL_RenderCopyEx(renderer, a[i].object_texture, NULL, &a[i].objectRenderCordinate, 0, &a[i].ObjCol, SDL_FLIP_NONE);
 	}
 }
 void mapProcess::getObjectListFromFile(std::vector<object>& a) {
@@ -24,7 +24,7 @@ void mapProcess::getObjectListFromFile(std::vector<object>& a) {
 	for (int i = 0; i < listSize; i++) {
 		int colX = ObjList.at(i)["colX"];
 		int colY = ObjList.at(i)["colY"];
-		object temp(colX, colX);
+		object temp(colX, colY);
 		addObject(a, temp);
 	}
 }

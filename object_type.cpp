@@ -2,6 +2,8 @@
 object::object(int x, int y) {
 	ObjCol.x = x;
 	ObjCol.y = y;
+	printf("%d\n", ObjCol.x);
+	printf("%d\n", ObjCol.y);
 	objectRenderCordinate.w = 64;
 	objectRenderCordinate.h = 64;
 	object_texture_rect.x = 0;
@@ -11,6 +13,7 @@ object::object(int x, int y) {
 	if (!loadTextureMedia()) {
 		printf("cannot load texture media");
 	}
+	setObjRenderCordinate();
 }
 bool object::loadTextureMedia() {
 	bool success_state = true;
@@ -22,7 +25,7 @@ bool object::loadTextureMedia() {
 	return success_state;
 }
 void object::loadObject(SDL_Renderer* renderer) {
-	SDL_RenderCopy(renderer, object_texture, &object_texture_rect, &objectRenderCordinate);
+	SDL_RenderCopy(renderer, object_texture,NULL, &objectRenderCordinate);
 }
 void object::moveObject(int direction) {
 	switch (direction) {
@@ -46,7 +49,7 @@ void object::moveObject(int direction) {
 void object::setObjRenderCordinate() {
 	int prefix_X = ObjCol.x - charCol.x;
 	int prefix_Y = ObjCol.y - charCol.y;
-	objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w / 2;
-	objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h / 2;
+	objectRenderCordinate.x = middle_screen.x + prefix_X;
+	objectRenderCordinate.y = middle_screen.y + prefix_Y;
 }
 

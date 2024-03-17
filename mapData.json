@@ -1,1 +1,64 @@
-{"objectList":[{"colX":283,"colY":334,"texture":"resources/tree.png","type":"tree"},{"colX":-693,"colY":862,"texture":"resources/tree.png","type":"tree"},{"colX":247,"colY":114,"texture":"resources/tree.png","type":"tree"},{"colX":103,"colY":-42,"texture":"resources/tree.png","type":"tree"},{"colX":-817,"colY":-422,"texture":"resources/tree.png","type":"tree"},{"colX":819,"colY":-878,"texture":"resources/tree.png","type":"tree"},{"colX":623,"colY":-334,"texture":"resources/tree.png","type":"tree"},{"colX":-981,"colY":-122,"texture":"resources/tree.png","type":"tree"},{"colX":835,"colY":-890,"texture":"resources/tree.png","type":"tree"},{"colX":63,"colY":-62,"texture":"resources/tree.png","type":"tree"}]}
+{
+    "objectList": [
+        {
+            "colX": -20,
+            "colY": 208,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -184,
+            "colY": 288,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": 256,
+            "colY": 208,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": 144,
+            "colY": 312,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": 172,
+            "colY": -72,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -480,
+            "colY": -220,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -444,
+            "colY": -388,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -472,
+            "colY": -16,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -140,
+            "colY": -148,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        },
+        {
+            "colX": -256,
+            "colY": -268,
+            "texture": "resources/tree.png",
+            "type": "tree"
+        }
+    ]
+}
