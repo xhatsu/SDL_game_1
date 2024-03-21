@@ -1,9 +1,8 @@
 #include"object_type.h"
-object::object(int x, int y) {
+object::object(int x, int y,int type) {
 	ObjCol.x = x;
 	ObjCol.y = y;
-	printf("%d\n", ObjCol.x);
-	printf("%d\n", ObjCol.y);
+	this->type = type;
 	object_texture_rect.w = 128;
 	object_texture_rect.h = 192;
 	objectRenderCordinate.w = object_texture_rect.w;

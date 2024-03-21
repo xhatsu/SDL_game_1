@@ -5,10 +5,11 @@ int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
 		if (loadGlobalMedia() == true) {		
 			srand((int)time(NULL));
-			int seed = (rand()+176234) * 3*(rand()%5)+174;
+			int seed = (rand()+176234)*3*(rand()/5+1)+174;
 			printf("%d", seed);
-			render_process render_map1(seed, 2000, 100, "mapData.json");
-			render_map1.render(seed);
+			//render_process render_map1(seed,2000,"mapData.json");
+			//render_map1.renderChunk(0, 0, 50);
+			//render_map1.writeToFile();
 			SDL_RenderClear(renderer);
 			//main char texture initialize
 			if (true) {

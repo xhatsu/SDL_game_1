@@ -4,12 +4,14 @@
 #include<string>
 #include"Direction.h"
 #include <algorithm>
+#include"ObjectTypeEnum.h"
 extern SDL_Rect char_location_rect;
 extern SDL_Point middle_screen;
 extern SDL_Point charCol;
 class object {
 public:
-	object(int x, int y);
+	object(int x, int y,int type);
+	int type;
 	SDL_Point ObjCol;
 	SDL_Rect objectRenderCordinate;
 	SDL_Texture* object_texture;

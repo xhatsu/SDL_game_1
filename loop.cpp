@@ -4,8 +4,9 @@ bool ColYSort(object a, object b) {
 }
 void loop() {
 	mapProcess map1;
-	map1.getObjectListFromFile(objectList);
-	std::sort(objectList.begin(),objectList.end(),ColYSort);
+	map1.getChunkList("mapData.json");
+	//map1.getObjectListFromFile(objectList);
+	//std::sort(objectList.begin(),objectList.end(),ColYSort);
 	SDL_Rect shadow_rect;
 	shadow_rect.w = char_location_rect.w;
 	shadow_rect.h = char_location_rect.h;
@@ -16,6 +17,7 @@ void loop() {
 	//render first time
 	SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 	SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+	SDL_Delay(1000);
 	//input handle
 	bool WaitForInput = false;
 	SDL_Event event_input;
@@ -67,8 +69,15 @@ void loop() {
 					moveState = false;
 				}
 				else if (Direction[LEFT] + Direction[RIGHT] + Direction[UP] + Direction[DOWN] != 0) {
-					moveState = true;
+						moveState = true;
+					 if (Direction[LEFT] && Direction[RIGHT]) {
+						moveState = false;
+					 }
+					 if (Direction[UP] && Direction[DOWN]) {
+						moveState = false;
+					 }
 				}
+				
 				correctDirection();
 			}
 		}
@@ -119,21 +128,23 @@ void loop() {
 			}
 		}
 		else if (moveState == false) {
-			a.updateChunk(-1);
-			_main_char_rect.x = 512;
-			SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-			WaitForInput = true;
-			SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+			if (WaitForInput == false) {
+				a.updateChunk(-1);
+				_main_char_rect.x = 512;
+				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
+				SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+				WaitForInput = true;
+			}
 		}
 		if (charSpriteDelay > 99) {
 			charSpriteDelay = 0;
 		}
-		map1.loadObjectList(objectList);
+		//map1.loadObjectList(objectList);
 		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(main_window);
 		int delta = SDL_GetTicks() - start_loop;
 		if (delta < desiredDelta) {
-			SDL_Delay(desiredDelta - delta);
+			//SDL_Delay(desiredDelta - delta);
 		}
 	}
 }

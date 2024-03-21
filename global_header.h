@@ -2,7 +2,7 @@
 #include<SDL.h>
 #include"Direction.h"
 #include"background.h"
-#include"object_type.h"
+#include"chunk_control.h"
 //enumerations for easy array declare
 SDL_Window* main_window = NULL;
 SDL_Rect _main_char_rect;
@@ -26,4 +26,4 @@ bool quit = false;
 int distance = 0;
 SDL_Point charCol;
 SDL_Point middle_screen;
-std::vector<object> objectList;
+//std::vector<chunk> chunkList;

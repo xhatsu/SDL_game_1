@@ -1,14 +1,18 @@
 #pragma once
-#include"object_type.h"
+#include"chunk_control.h"
 #include"json.hpp"
 #include<fstream>
 #include<vector>
+#include<string>
 using namespace nlohmann::json_abi_v3_11_3;
 extern SDL_Renderer* renderer;
-extern std::vector<object> objectList;
+extern std::vector<chunk> objectList;
 class mapProcess {
 public:
-	void getObjectListFromFile(std::vector<object> &a);
-	bool addObject(std::vector<object>& a, object target);
-	void loadObjectList(std::vector<object>& a);
+	std::vector<chunk> chunkList;
+	void getChunkList(std::string path);
+	//void getObjectListFromFile(std::vector<object> &a);
+	//void addObject(std::vector<object>& a, object target);
+	//void loadObjectList(std::vector<object>& a);
+	//mapProcess();
 };

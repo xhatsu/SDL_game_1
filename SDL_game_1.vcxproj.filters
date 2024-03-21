@@ -42,6 +42,9 @@
     <ClCompile Include="render_process.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="chunk_control.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png">
@@ -98,6 +101,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="render_process.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chunk_control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
