@@ -13,7 +13,7 @@ SDL_Texture* _main_char = NULL;
 SDL_Texture* mainChar_shadow=NULL;
 SDL_Rect mainChar_shadow_Rect;
 SDL_Texture* tree_texture_1 = NULL;
-backGround a;
+backGround mainBackGround;
 bool Direction[8];
 int speed = 2;
 int charSpriteDelay = 0;

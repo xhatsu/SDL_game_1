@@ -9,6 +9,6 @@ public:
 	int CorY;
 	std::vector<object> chunkObjectList;
 	chunk(int CorX,int CorY);
-
+	
 };
 

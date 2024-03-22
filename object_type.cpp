@@ -24,6 +24,7 @@ bool object::loadTextureMedia() {
 	return success_state;
 }
 void object::loadObject(SDL_Renderer* renderer) {
+	setObjRenderCordinate();
 	SDL_RenderCopy(renderer, object_texture,NULL, &objectRenderCordinate);
 }
 void object::moveObject(int direction) {
@@ -46,9 +47,11 @@ void object::moveObject(int direction) {
 
 }
 void object::setObjRenderCordinate() {
-	int prefix_X = ObjCol.x - charCol.x;
-	int prefix_Y = ObjCol.y - charCol.y;
-	objectRenderCordinate.x = middle_screen.x + prefix_X;
-	objectRenderCordinate.y = middle_screen.y + prefix_Y;
+	if (type == tree) {
+		int prefix_X = ObjCol.x - charCol.x;
+		int prefix_Y = ObjCol.y - charCol.y;
+		objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w/2;
+		objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h+16;
+	}
 }
 

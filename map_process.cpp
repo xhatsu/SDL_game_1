@@ -1,5 +1,8 @@
 #pragma once
 #include"map_process.h"
+bool ColYSort(object a, object b) {
+	return (a.objectRenderCordinate.y < b.objectRenderCordinate.y);
+}
 void mapProcess::getChunkList(std::string path) {
 	std::ifstream mapFile(path);
 	json fileObject = json::object();
@@ -18,7 +21,33 @@ void mapProcess::getChunkList(std::string path) {
 			object tempObj(chunkObjectListJson.at(i)["colX"], chunkObjectListJson.at(i)["colY"], chunkObjectListJson.at(i)["type"]);
 			tempChunk.chunkObjectList.push_back(tempObj);
 		}
+		std::sort(tempChunk.chunkObjectList.begin(),tempChunk.chunkObjectList.end(),ColYSort);
 		chunkList.push_back(tempChunk);
 	}
 	mapFile.close();
+}
+void mapProcess::loadChunk(chunk currentChunk, bool isOver) {
+	int objectNumber = currentChunk.chunkObjectList.size();
+	if (!isOver) {
+		for (int i = 0; i < objectNumber; i++) {
+			if (currentChunk.chunkObjectList.at(i).ObjCol.y <= charCol.y)
+			{	
+				currentChunk.chunkObjectList.at(i).loadObject(renderer);
+			}
+		}
+	}
+	if (isOver) {
+		for (int i = 0; i < objectNumber; i++) {
+			if (currentChunk.chunkObjectList.at(i).ObjCol.y >= charCol.y)
+			{	
+				currentChunk.chunkObjectList.at(i).loadObject(renderer);
+			}
+		}
+	}
+}
+void mapProcess::updateMap(bool isOver) {
+	int size = activeChunk.size();
+	for (int i = 0; i < size; i++) {
+		loadChunk(activeChunk.at(i),isOver);
+	}
 }
