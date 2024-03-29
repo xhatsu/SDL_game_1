@@ -9,23 +9,27 @@ object::object(int x, int y,int type) {
 	objectRenderCordinate.h = object_texture_rect.h;
 	object_texture_rect.x = 0;
 	object_texture_rect.y = 0;
-	if (!loadTextureMedia()) {
-		printf("cannot load texture media");
-	}
 	setObjRenderCordinate();
-}
-bool object::loadTextureMedia() {
-	bool success_state = true;
-	object_texture = loadTexture("resources/Tree.png");
-	if (object_texture == NULL) {
-		printf("error loading object texture");
-		success_state = false;
+	switch (type)
+	{
+	case tree:
+		ObjPlaceHolder.w = 32;
+		ObjPlaceHolder.h = 32;
+		ObjPlaceHolder.x = ObjCol.x - ObjPlaceHolder.w/2;
+		ObjPlaceHolder.y = ObjCol.y - ObjPlaceHolder.h/2;
+	default:
+		break;
 	}
-	return success_state;
 }
 void object::loadObject(SDL_Renderer* renderer) {
 	setObjRenderCordinate();
-	SDL_RenderCopy(renderer, object_texture,NULL, &objectRenderCordinate);
+	switch (type)
+	{
+	case tree:
+		SDL_RenderCopy(renderer, treeTexture, NULL, &objectRenderCordinate);
+	default:
+		break;
+	}
 }
 void object::moveObject(int direction) {
 	switch (direction) {

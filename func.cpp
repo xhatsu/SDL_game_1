@@ -67,5 +67,24 @@ bool loadGlobalMedia() {
 		printf("error loading char shadow");
 		success_state = false;
 	}
+	loadingScreen = loadTexture("resources/loading_screen.png");
+	if (loadingScreen == NULL) {
+			printf("error loading char shadow");
+			success_state = false;
+	}
+	renderingScreen = loadTexture("resources/rendering_screen.png");
+	if (renderingScreen == NULL) {
+		printf("error loading char shadow");
+		success_state = false;
+	}
+	return success_state;
+}
+bool loadTextureMedia() {
+	bool success_state = true;
+	treeTexture = loadTexture("resources/Tree.png");
+	if (treeTexture == NULL) {
+		printf("error loading object texture");
+		success_state = false;
+	}
 	return success_state;
 }

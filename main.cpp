@@ -3,14 +3,23 @@
 
 int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
-		if (loadGlobalMedia() == true) {		
+		if (loadGlobalMedia() == true) {
+			loadTextureMedia();
 			srand((int)time(NULL));
-			int seed = (rand()+176234)*3*(rand()/5+1)+174;
+			//rendering
+			SDL_RenderCopy(renderer, renderingScreen, NULL, NULL);
+			int seed = rand();
 			printf("%d", seed);
-			render_process render_map1(seed,2000,"mapData.json");
-			render_map1.renderChunk(0, 0,50);
+			render_process render_map1(seed,1280,"mapData.json");
+			for (int i = -10; i <= 10; i++) {
+				for (int j = -10; j <= 10; j++) {
+					render_map1.renderChunk(i, j, 20);
+				}
+			}
 			render_map1.writeToFile();
-			SDL_RenderClear(renderer);
+			SDL_Delay(1000);
+			//loading
+			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize
 			if (true) {
 				_main_char_rect.x = 0;
@@ -29,12 +38,11 @@ int main(int argc, char* args[]) {
 			}
 			middle_screen.x = SCREEN_WIDTH / 2;
 			middle_screen.y = SCREEN_HEIGHT / 2;
-			charCol.x = 0;
-			charCol.y = 0;
+			charCol.x = 640;
+			charCol.y = 640;
 			//test
 			//pre render
 			SDL_RenderPresent(renderer);
-			//sort(objectList.begin(),objectList.end(),render_map1.);
 			//start loop
 			loop();
 			

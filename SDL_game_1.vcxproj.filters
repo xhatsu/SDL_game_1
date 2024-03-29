@@ -65,6 +65,12 @@
     <Image Include="resources\Tree.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\loading_screen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\rendering_screen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global_header.h">
