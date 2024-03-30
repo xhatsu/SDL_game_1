@@ -5,8 +5,10 @@ int main(int argc, char* args[]) {
 	if (InitWindow() == true) {
 		if (loadGlobalMedia() == true) {
 			loadTextureMedia();
+			SDL_RenderClear(renderer);
 			srand((int)time(NULL));
 			//rendering
+			SDL_Delay(100);
 			SDL_RenderCopy(renderer, renderingScreen, NULL, NULL);
 			int seed = rand();
 			printf("%d", seed);
@@ -17,7 +19,7 @@ int main(int argc, char* args[]) {
 				}
 			}
 			render_map1.writeToFile();
-			SDL_Delay(1000);
+			//SDL_Delay(1000);
 			//loading
 			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize

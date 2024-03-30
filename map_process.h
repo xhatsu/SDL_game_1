@@ -21,8 +21,6 @@ public:
 	void getChunkList(std::string path);
 	void loadChunk(chunk currentChunk,bool isOver);
 	void updateMap(bool isOver);
-	//void getObjectListFromFile(std::vector<object> &a);
-	//void addObject(std::vector<object>& a, object target);
-	//void loadObjectList(std::vector<object>& a);
 	mapProcess();
+	~mapProcess();
 };

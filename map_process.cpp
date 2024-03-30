@@ -72,3 +72,10 @@ bool mapProcess::Collision::CollisionCheckListPLayer() {
 mapProcess::mapProcess() {
 	printf("\nmmap created\n");
 }
+mapProcess::~mapProcess() {
+	chunkList.clear();
+	activeChunk.clear();
+	std::vector<chunk>().swap(chunkList);
+	std::vector<chunk>().swap(activeChunk);
+	printf("map deallocated");
+}

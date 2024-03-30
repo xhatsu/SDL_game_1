@@ -35,8 +35,6 @@ bool InitWindow() {
 }
 void close_window() {
 	SDL_DestroyWindow(main_window);
-	main_window = NULL;
-	renderer = NULL;
 	printf("closed window");
 	SDL_Quit();
 	IMG_Quit();

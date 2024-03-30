@@ -72,9 +72,9 @@ bool loadGlobalMedia() {
 			printf("error loading char shadow");
 			success_state = false;
 	}
-	renderingScreen = loadTexture("resources/rendering_screen.png");
+	renderingScreen = loadTexture("resources/renderingScreen.png");
 	if (renderingScreen == NULL) {
-		printf("error loading char shadow");
+		printf("error loading rendering_screen");
 		success_state = false;
 	}
 	return success_state;
