@@ -18,9 +18,13 @@ public:
 	Collision mapCollisionControl;
 	std::vector<chunk> chunkList;
 	std::vector<chunk> activeChunk;
+	std::vector<object> objectList;
+	void arrangeChunk(int chunkIndexX, int chunkIndexY);
+	void arrangeObject();
 	void getChunkList(std::string path);
-	void loadChunk(chunk currentChunk,bool isOver);
+	void loadObjectList(bool isOver);
 	void updateMap(bool isOver);
+	void updateCheckList();
 	mapProcess();
 	~mapProcess();
 };

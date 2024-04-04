@@ -27,9 +27,6 @@
     <ClCompile Include="main_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="char_handle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="chunk_control.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="character_handle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,9 +88,6 @@
     <ClInclude Include="main_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="char_handle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +110,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="chunk_control.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="character_handle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

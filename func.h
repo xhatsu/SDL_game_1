@@ -6,7 +6,6 @@
 #include"json.hpp"
 extern SDL_Texture* grass_background ;
 extern SDL_Texture* tree_texture_1 ;
-extern SDL_Texture* _main_char;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* mainChar_shadow;
 extern SDL_Texture* loadingScreen;

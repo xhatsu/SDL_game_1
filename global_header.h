@@ -5,22 +5,16 @@
 #include"chunk_control.h"
 //enumerations for easy array declare
 SDL_Window* main_window = NULL;
-SDL_Rect _main_char_rect;
-SDL_Rect char_location_rect;
 SDL_Renderer* renderer = NULL;
 SDL_Texture* grass_background = NULL;
-SDL_Texture* _main_char = NULL;
 SDL_Texture* mainChar_shadow=NULL;
-SDL_Rect mainChar_shadow_Rect;
-SDL_Texture* tree_texture_1 = NULL;
+//SDL_Texture* tree_texture_1 = NULL;
 SDL_Texture* loadingScreen = NULL;
 SDL_Texture* renderingScreen = NULL;
 SDL_Texture* treeTexture = NULL;
 backGround mainBackGround;
 bool Direction[8];
 int speed = 2;
-int charSpriteDelay = 0;
-int charSpriteDelayRate = 11;
 double MovementDelayRate = 1.8;
 int fps = 165;
 int desiredDelta = 1000 / fps;

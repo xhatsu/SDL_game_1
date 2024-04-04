@@ -52,19 +52,9 @@ SDL_Texture* loadTexture(std::string path) {
 //close
 bool loadGlobalMedia() {
 	bool success_state = true;
-	_main_char = loadTexture("resources/main_char_sprite_sheet.png");
-	if (_main_char == NULL) {
-		printf("error loading main char");
-		success_state = false;
-	}
 	grass_background = loadTexture("resources/grass_background.png");
 	if (grass_background == NULL) {
 		printf("error loading background");
-		success_state = false;
-	}
-	mainChar_shadow = loadTexture("resources/mainChar_shadow.png");
-	if (mainChar_shadow == NULL) {
-		printf("error loading char shadow");
 		success_state = false;
 	}
 	loadingScreen = loadTexture("resources/loading_screen.png");

@@ -1,73 +1,57 @@
 #include"loop.h"
+
 void loop() {
+	//action initialize
+	int charState=MOVING;
+	bool aiming = false;
+	int aimTime = 0;
 	//map initialize
 	int chunkIndexX=0, chunkIndexY=0;
 	int chunkIndexX_new=0, chunkIndexY_new=0;
 	mapProcess map1;
+	characterHandle char1;
 	map1.getChunkList("mapData.json");
-	map1.activeChunk.clear();
-	for (int i = 0; i < map1.chunkList.size(); i++) {
-		if (map1.chunkList.at(i).CorX == chunkIndexX && map1.chunkList.at(i).CorY == chunkIndexY) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX + 1 && map1.chunkList.at(i).CorY == chunkIndexY + 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX - 1 && map1.chunkList.at(i).CorY == chunkIndexY - 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX + 1 && map1.chunkList.at(i).CorY == chunkIndexY) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX && map1.chunkList.at(i).CorY == chunkIndexY + 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX - 1 && map1.chunkList.at(i).CorY == chunkIndexY) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX - 1 && map1.chunkList.at(i).CorY == chunkIndexY + 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX && map1.chunkList.at(i).CorY == chunkIndexY - 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-		if (map1.chunkList.at(i).CorX == chunkIndexX + 1 && map1.chunkList.at(i).CorY == chunkIndexY - 1) {
-			map1.activeChunk.push_back(map1.chunkList.at(i));
-		}
-	}
-	map1.mapCollisionControl.checkList.clear();
-	for (int i = 0; i < map1.activeChunk.size(); i++) {
-		if (map1.activeChunk.at(i).CorX == chunkIndexX && map1.activeChunk.at(i).CorY == chunkIndexY) {
-			for (int j = 0; j < map1.activeChunk.at(i).chunkObjectList.size(); j++) {
-				map1.mapCollisionControl.checkList.push_back(map1.activeChunk.at(i).chunkObjectList.at(j));
-			}
-		}
-	}
-	//shadow(temp)
-	SDL_Rect shadow_rect;
-	shadow_rect.w = char_location_rect.w;
-	shadow_rect.h = char_location_rect.h;
-	shadow_rect.x = char_location_rect.x;
-	shadow_rect.y = char_location_rect.y + 5;
+	map1.arrangeChunk(chunkIndexX, chunkIndexY);
+	map1.arrangeObject();
+	map1.updateCheckList();
 	mainBackGround.updateChunk(-1);
-	_main_char_rect.x = 512;
 	//first time render
-	SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
 	map1.updateMap(false);
-	SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+	char1.updateChar(MOVING, -1);
 	map1.updateMap(true);
 	SDL_Delay(1000);
 	//input handle
 	bool WaitForInput = true;
 	SDL_Event event_input;
 	const Uint8* key_state = SDL_GetKeyboardState(NULL);
+	int mouseX, mouseY;
+	Uint32 mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 	int start_loop = SDL_GetTicks64();
+	//start loop
 	while (quit == false) {
+		//polling event
 		while (SDL_PollEvent(&event_input)) {
 			if (event_input.type == SDL_QUIT) { quit = true; }
 			//movement handle
 			if (true) {
-				
+				if (event_input.type == SDL_MOUSEMOTION) {
+					SDL_GetMouseState(&mouseX, &mouseY);
+				}
+				if (event_input.type == SDL_MOUSEBUTTONDOWN) {
+					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
+					if (mouseButton == SDL_BUTTON(1) ) {aiming = true;}
+					if (aimTime >= 1000) {
+						aiming = false;
+						aimTime = 0;
+					}
+				}
+				if (event_input.type == SDL_MOUSEBUTTONUP) {
+					if (aiming == true) {
+						//char1.updateChar(ATTACKING,)
+						aiming = false;
+						aimTime = 0;
+					}
+				}
 				if (event_input.type == SDL_KEYDOWN) {
 					//reset
 					if (key_state[SDL_SCANCODE_L]) {
@@ -125,13 +109,32 @@ void loop() {
 				correctDirection();
 			}
 		}
-		//render
+		if (aiming == true) {
+			aimTime++;
+			printf("\n%d", aimTime);
+		}
+		//update chunk
+		chunkIndexX_new = charCol.x / 720;
+		if (charCol.x < 0) {
+			chunkIndexX_new--;
+		}
+		chunkIndexY_new = charCol.y / 720;
+		if (charCol.y < 0) {
+			chunkIndexY_new--;
+		}
+		if (chunkIndexX != chunkIndexX_new || chunkIndexY != chunkIndexY_new) {
+			chunkIndexX = chunkIndexX_new;
+			chunkIndexY = chunkIndexY_new;
+			printf("\n%d", chunkIndexX);
+			printf("\n%d", chunkIndexY);
+			map1.arrangeChunk(chunkIndexX, chunkIndexY);
+			map1.arrangeObject();
+		}
 		//is moving
-		if (moveState == true) {
+		if (moveState == true&&aiming==false) {
 			WaitForInput = false;
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 				SDL_Delay(int(5 * MovementDelayRate));
-				charSpriteDelayRate += 2;
 			}
 			else {
 				SDL_Delay(5);
@@ -140,10 +143,8 @@ void loop() {
 				charCol.x -= speed;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
 					mainBackGround.updateChunk(LEFT);
-					_main_char_rect.y = 576;
 					map1.updateMap(false);
-					SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-					updateChar(charSpriteDelay);
+					char1.updateChar(MOVING, LEFT);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -155,10 +156,8 @@ void loop() {
 				charCol.x += speed;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
 					mainBackGround.updateChunk(RIGHT);
-					_main_char_rect.y = 704;
 					map1.updateMap(false);
-					SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-					updateChar(charSpriteDelay);
+					char1.updateChar(MOVING, RIGHT);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -171,10 +170,8 @@ void loop() {
 				charCol.y -= speed;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
 					mainBackGround.updateChunk(UP);
-					_main_char_rect.y = 512;
 					map1.updateMap(false);
-					SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-					updateChar(charSpriteDelay);
+					char1.updateChar(MOVING, UP);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -186,10 +183,8 @@ void loop() {
 				charCol.y += speed;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
 					mainBackGround.updateChunk(DOWN);
-					_main_char_rect.y = 640;
 					map1.updateMap(false);
-					SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-					updateChar(charSpriteDelay);
+					char1.updateChar(MOVING, DOWN);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -198,86 +193,27 @@ void loop() {
 				}
 			}
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
-				charSpriteDelayRate -= 2;
+				//charSpriteDelayRate -= 2;
 			}
 		}
 		//not moving
 		else if (moveState == false) {
 			if (WaitForInput == false) {
-				
 				mainBackGround.updateChunk(-1);
-				_main_char_rect.x = 512;
 				map1.updateMap(false);
-				SDL_RenderCopy(renderer, mainChar_shadow, &mainChar_shadow_Rect, &shadow_rect);
-				SDL_RenderCopy(renderer, _main_char, &_main_char_rect, &char_location_rect);
+				char1.updateChar(MOVING, -1);
 				map1.updateMap(true);
 				WaitForInput = true;
 			}
 		}
-		//sprite delay
-		if (charSpriteDelay > 99) { 
-			charSpriteDelay = 0;
-		}
-		//update current chunk
-		chunkIndexX_new = charCol.x / 1280;
-		if (charCol.x < 0) {
-			chunkIndexX_new--;
-		}
-		chunkIndexY_new = charCol.y / 1280;
-		if (charCol.y < 0) {
-			chunkIndexY_new--;
-		}
-		if (chunkIndexX != chunkIndexX_new || chunkIndexY != chunkIndexY_new) {
-			chunkIndexX = chunkIndexX_new;
-			chunkIndexY = chunkIndexY_new;
-			printf("\n%d", chunkIndexX);
-			printf("\n%d", chunkIndexY);
-			map1.activeChunk.clear();
-			for (int i = 0; i < map1.chunkList.size(); i++) {
-				if (map1.chunkList.at(i).CorX == chunkIndexX     && map1.chunkList.at(i).CorY == chunkIndexY     ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX + 1 && map1.chunkList.at(i).CorY == chunkIndexY + 1 ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX - 1 && map1.chunkList.at(i).CorY == chunkIndexY - 1 ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX + 1 && map1.chunkList.at(i).CorY == chunkIndexY    ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX     && map1.chunkList.at(i).CorY == chunkIndexY + 1 ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX - 1 && map1.chunkList.at(i).CorY == chunkIndexY     ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX  -1   && map1.chunkList.at(i).CorY == chunkIndexY   +1 ) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX && map1.chunkList.at(i).CorY == chunkIndexY-1) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-				if (map1.chunkList.at(i).CorX == chunkIndexX +1&& map1.chunkList.at(i).CorY == chunkIndexY-1) {
-					map1.activeChunk.push_back(map1.chunkList.at(i));
-				}
-			}
-			map1.mapCollisionControl.checkList.clear();
-			for (int i = 0; i < map1.activeChunk.size(); i++) {
-				if (map1.activeChunk.at(i).CorX == chunkIndexX && map1.activeChunk.at(i).CorY == chunkIndexY) {
-					for (int j = 0; j < map1.activeChunk.at(i).chunkObjectList.size(); j++) {
-						map1.mapCollisionControl.checkList.push_back(map1.activeChunk.at(i).chunkObjectList.at(j));
-					}
-				}
-			}
-		}
+		map1.updateCheckList();
 		//render to screen
 		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(main_window);
 		//fps cap
 		int delta = SDL_GetTicks() - start_loop;
 		if (delta < desiredDelta) {
-			SDL_Delay(desiredDelta - delta);
+			//SDL_Delay(desiredDelta - delta);
 		}
 	}
 }

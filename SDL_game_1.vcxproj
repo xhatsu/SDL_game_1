@@ -147,13 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="character_handle.cpp" />
     <ClCompile Include="chunk_control.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_process.cpp" />
     <ClCompile Include="object_type.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main_window.cpp" />
-    <ClCompile Include="char_handle.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="loop.cpp" />
     <ClCompile Include="render_process.cpp" />
@@ -169,11 +169,12 @@
     <Image Include="resources\Tree_SpriteSheet_Outlined.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="character_handle.h" />
     <ClInclude Include="chunk_control.h" />
     <ClInclude Include="func.h" />
-    <ClInclude Include="char_handle.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="CharState.h" />
     <ClInclude Include="ObjectTypeEnum.h" />
     <ClInclude Include="loop.h" />
     <ClInclude Include="json.hpp" />
