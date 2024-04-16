@@ -9,6 +9,7 @@ extern SDL_Rect char_location_rect;
 extern SDL_Point middle_screen;
 extern SDL_Point charCol;
 extern SDL_Texture* treeTexture;
+extern SDL_Texture* boxTexture;
 class object {
 public:
 	object(int x, int y,int type);

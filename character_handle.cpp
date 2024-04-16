@@ -1,6 +1,9 @@
 #include "character_handle.h"
 void characterHandle::updateChar(int state,int direction) {
 	switch (state) {
+	case STANDSTILL:
+		charTextureSpriteLocation.x = 320;
+		break;
 	case MOVING:
 		switch (direction) {
 		case UP:
@@ -16,6 +19,7 @@ void characterHandle::updateChar(int state,int direction) {
 			charTextureSpriteLocation.y = 704;
 			break;
 		default:
+			charTextureSpriteLocation.x = 64;
 			break;
 		}
 		if (charTextureSpriteLocation.x == 0) {
@@ -25,7 +29,7 @@ void characterHandle::updateChar(int state,int direction) {
 			charTextureSpriteLocation.x += 64;
 		}
 		counter++;
-		if (charTextureSpriteLocation.x >= 574) {
+		if (charTextureSpriteLocation.x >= 576) {
 			charTextureSpriteLocation.x = 64;
 		}
 		if (counter > 100) {
@@ -41,13 +45,26 @@ void characterHandle::updateChar(int state,int direction) {
 			charTextureSpriteLocation.y = 1152;
 			break;
 		case LEFT:
-			charTextureSpriteLocation.y = 1088;
+			charTextureSpriteLocation.y = 1088;;
 			break;
 		case RIGHT:
 			charTextureSpriteLocation.y = 1216;
 			break;
 		default:
 			break;
+		}
+		if (charTextureSpriteLocation.x == 0) {
+			charTextureSpriteLocation.x = 64;
+		}
+		if (counter % charSpriteDelayRate == 0) {
+			charTextureSpriteLocation.x += 64;
+		}
+		counter++;
+		if (charTextureSpriteLocation.x >= 768) {
+			charTextureSpriteLocation.x = 64;
+		}
+		if (counter > 100) {
+			counter = 0;
 		}
 		break;
 	default:
@@ -69,6 +86,9 @@ characterHandle::characterHandle() {
 	counter = 0;
 	charSpriteDelayRate = 11;
 	charTexture = loadCharTexture("resources/main_char_sprite_sheet.png");
+}
+void characterHandle::resetAim() {
+	charTextureSpriteLocation.x = 0;
 }
 SDL_Texture* loadCharTexture(std::string path) {
 	//define optimized surface

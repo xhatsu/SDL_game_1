@@ -51,7 +51,7 @@ void mapProcess::loadObjectList(bool isOver) {
 void mapProcess::updateMap(bool isOver) {
 	loadObjectList(isOver);
 }
-bool mapProcess::Collision::CollisionCheckPlayer(object a) {
+inline bool mapProcess::Collision::CollisionCheckPlayer(object a) {
 	if ((charCol.x + 8 >= a.ObjCol.x - a.ObjPlaceHolder.w/2)&&charCol.x-8<=a.ObjCol.x+a.ObjPlaceHolder.w/2) {
 		if ((charCol.y + 8 >= a.ObjCol.y - a.ObjPlaceHolder.h / 2)&&(charCol.y -8 <= a.ObjCol.y + a.ObjPlaceHolder.h / 2)) {
 			//printf("\n blocked");

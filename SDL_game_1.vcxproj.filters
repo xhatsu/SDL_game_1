@@ -45,6 +45,12 @@
     <ClCompile Include="character_handle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity_control.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png">
@@ -69,6 +75,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\renderingScreen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Rabbit.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -116,6 +125,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CharState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="entity_control.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -76,5 +76,24 @@ bool loadTextureMedia() {
 		printf("error loading object texture");
 		success_state = false;
 	}
+	rabbitTexture = loadTexture("resources/Rabbit.png");
+	if (rabbitTexture == NULL) {
+		printf("error loading object texture");
+		success_state = false;
+	}
+	boxTexture = loadTexture("resources/Box.png");
+	if (boxTexture == NULL) {
+		printf("error loading object texture");
+		success_state = false;
+	}
 	return success_state;
+}
+double angleCaluculate(int corX, int corY) {
+	double d = double(corY);
+	double k = double(corX);
+	//printf("\nx:%f", k);
+	//printf("\ny:%f", d);
+	double tan = d / k;
+	double arctan = atan(tan);
+	return arctan * 180 / 3.1415;
 }

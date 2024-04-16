@@ -11,7 +11,7 @@ public:
 	std::vector<SDL_Texture*> textureList;
 	class Collision {
 		public:
-			bool CollisionCheckPlayer(object a);
+			inline bool CollisionCheckPlayer(object a);
 			bool CollisionCheckListPLayer();
 			std::vector<object> checkList;
 	};

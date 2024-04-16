@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClCompile Include="character_handle.cpp" />
     <ClCompile Include="chunk_control.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="entity_control.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_process.cpp" />
     <ClCompile Include="object_type.cpp" />
@@ -163,6 +165,7 @@
     <Image Include="resources\loading_screen.png" />
     <Image Include="resources\mainChar_shadow.png" />
     <Image Include="resources\main_char_sprite_sheet.png" />
+    <Image Include="resources\Rabbit.png" />
     <Image Include="resources\renderingScreen.png" />
     <Image Include="resources\Tree.png" />
     <Image Include="resources\Tree_SpriteSheet.png" />
@@ -171,6 +174,9 @@
   <ItemGroup>
     <ClInclude Include="character_handle.h" />
     <ClInclude Include="chunk_control.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="EntityState.h" />
+    <ClInclude Include="entity_control.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="background.h" />
     <ClInclude Include="Direction.h" />

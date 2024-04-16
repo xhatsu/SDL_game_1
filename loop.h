@@ -4,9 +4,11 @@
 #include"background.h"
 #include"map_process.h"
 #include"character_handle.h"
+#include"entity_control.h"
 #include<algorithm>
+extern double angleCaluculate(int mouseX, int mouseY);
 extern void correctDirection();
-extern void updateChar(int charSpriteDelay);
+//extern void updateChar(int charSpriteDelay);
 extern SDL_Window* main_window;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* grass_background;

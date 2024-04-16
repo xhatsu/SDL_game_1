@@ -12,9 +12,11 @@ public:
 	SDL_Rect charRenderLocation;
 	SDL_Texture* charTexture;
 	int state;
+	int direction;
 	int charSpriteDelayRate;
 	int counter;
 	void updateChar(int state,int direction);
+	void resetAim();
 	characterHandle();
 };
 SDL_Texture* loadCharTexture(std::string path);

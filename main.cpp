@@ -15,7 +15,8 @@ int main(int argc, char* args[]) {
 			render_process render_map1(seed,720,"mapData.json");
 			for (int i = -10; i <= 10; i++) {
 				for (int j = -10; j <= 10; j++) {
-					render_map1.renderChunk(i, j, 15);
+					if (i == 0 && j == 0) continue;
+					render_map1.renderChunk(i, j, 7);
 				}
 			}
 			render_map1.writeToFile();
@@ -25,8 +26,8 @@ int main(int argc, char* args[]) {
 			//main char texture initialize
 			middle_screen.x = SCREEN_WIDTH / 2;
 			middle_screen.y = SCREEN_HEIGHT / 2;
-			charCol.x = 640;
-			charCol.y = 640;
+			charCol.x = 320;
+			charCol.y = 320;
 			//test
 			//pre render
 			SDL_RenderPresent(renderer);

@@ -27,7 +27,9 @@ void render_process::renderChunk(int CorX,int CorY,int number) {
     chunk["CorY"] = CorY;
     for (int i = 0; i < number; i++) {
         json object;
-        chunkObjectList.push_back(generateObject(object, tree, CorX * sizeRange, CorY * sizeRange, sizeRange, seed));
+        //int type = rand() % 2;
+        int type = tree;
+        chunkObjectList.push_back(generateObject(object, type, CorX * sizeRange, CorY * sizeRange, sizeRange, seed));
     }
     chunk["chunkObjectList"] = chunkObjectList;
     chunkList.push_back(chunk);
