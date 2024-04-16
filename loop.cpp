@@ -29,8 +29,12 @@ void loop() {
 	characterHandle char1;
 	//test
 	int direction;
-	entity test = entity(300, 300, rabbit);
-	mapEntityControl.addEntity(test);
+	/*for (int i = 0; i < 1000; i++) {
+		int x = rand() % 600;
+		int y = rand() % 600;
+		entity test = entity(x, y, rabbit);
+		mapEntityControl.entityList.push_back(test);
+	}*/
 	//action initialize
 	int charState=MOVING;
 	bool aiming = false;
@@ -63,6 +67,7 @@ void loop() {
 	//start loop
 	while (quit == false) {
 		//polling event
+		//SDL_Delay(10);
 		while (SDL_PollEvent(&event_input)) {
 			
 			if (event_input.type == SDL_QUIT) { quit = true; }
@@ -117,9 +122,10 @@ void loop() {
 					//printf("\nevent");
 					//reset
 					if (key_state[SDL_SCANCODE_L]) {
-						distance = 0;
-						charCol.x = 0;
-						charCol.y = 0;
+						int x = charCol.x;
+						int y = charCol.y;
+						entity test = entity(x, y, rabbit);
+						mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
 						printf("\n%d", charCol.x);

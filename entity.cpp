@@ -63,7 +63,16 @@ void entity::updateEntity() {
 			if (state == eSTART) {
 				int padding = 0;
 				switch (direction) {
+				case LEFT:
+					padding = 864;
+					break;
+				case RIGHT:
+					padding = 576;
+					break;
 				case DOWN:
+					padding = 288;
+					break;
+				case UP:
 					padding = 0;
 					break;
 				default:
@@ -73,26 +82,30 @@ void entity::updateEntity() {
 				for (int i = 0; i < 8; i++) {
 					SDL_Rect texture_rect=objectDefaultTextureRect;
 					texture_rect.x = i*36 + padding;
-					printf("\n%d", texture_rect.x);
-					printf("\n%d", texture_rect.y);
-					printf("\n%d", texture_rect.w);
-					printf("\n%d", texture_rect.h);
+					//printf("\n%d", texture_rect.x);
+					//printf("\n%d", texture_rect.y);
+					//printf("\n%d", texture_rect.w);
+					//printf("\n%d", texture_rect.h);
 					objectTexturePollList.push_back(texture_rect);
 				}
 				state = eMOVING;
 			}
 			break;
 		case eMOVING:
-			if (delayAction % 25 == 0) {
+			if (delayAction % 12 == 0) {
 				if (!objectTexturePollList.empty()) {
 					object_texture_rect = getTextureRectPoll();
+					
 				}
 			}
-			printf("\n%d", objectTexturePollList.size());
-			moveEntity(direction);
-			loadEntity(renderer);
-			if (objectTexturePollList.size() == 0) {
-					state == eSTANDING;
+			if (delayAction % 3 == 0) {
+				moveEntity(direction);
+				//moveEntity(delayAction % 4);
+			}
+			//printf("\n%d", int(objectTexturePollList.size()));
+			if (objectTexturePollList.size() < 1) {
+				state = eSTANDING;
+				delayAction = 0;
 			}	
 			break;
 		case eSTANDING:
@@ -104,8 +117,14 @@ void entity::updateEntity() {
 	delayAction++;
 	if (delayAction > 500) {
 		delayAction = 0;
-		state = eSTART;
-		direction = rand() % 4;
+	}
+	if (delayAction%100==1) {
+		int temp = rand() % 4;
+		if (temp == 2) {
+			delayAction = 0;
+			state = eSTART;
+			direction = rand() % 4;
+		}
 	}
 }
 void entity::loadEntity(SDL_Renderer* renderer) {
