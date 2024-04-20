@@ -48,7 +48,7 @@ void mapProcess::loadObjectList(bool isOver) {
 		}
 	}
 }
-void mapProcess::updateMap(bool isOver) {
+void mapProcess::updateMap(bool isOver) { 
 	loadObjectList(isOver);
 }
 inline bool mapProcess::Collision::CollisionCheckPlayer(object a) {
@@ -77,7 +77,7 @@ void mapProcess::arrangeObject() {
 		}
 	}
 	std::sort(objectList.begin(), objectList.end(), ColYSort);
-	std::sort(objectList.begin(), objectList.end(), ColXSort);
+	//std::sort(objectList.begin(), objectList.end(), ColXSort);
 }
 void mapProcess::arrangeChunk(int chunkIndexX,int chunkIndexY) {
 	activeChunk.clear();

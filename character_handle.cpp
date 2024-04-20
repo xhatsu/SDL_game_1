@@ -3,6 +3,22 @@ void characterHandle::updateChar(int state,int direction) {
 	switch (state) {
 	case STANDSTILL:
 		charTextureSpriteLocation.x = 320;
+		switch (direction) {
+		case UP:
+			charTextureSpriteLocation.y = 512;
+			break;
+		case DOWN:
+			charTextureSpriteLocation.y = 640;
+			break;
+		case LEFT:
+			charTextureSpriteLocation.y = 576;
+			break;
+		case RIGHT:
+			charTextureSpriteLocation.y = 704;
+			break;
+		default:
+			break;
+		}
 		break;
 	case MOVING:
 		switch (direction) {
@@ -28,6 +44,7 @@ void characterHandle::updateChar(int state,int direction) {
 		if (counter % charSpriteDelayRate == 0) {
 			charTextureSpriteLocation.x += 64;
 		}
+		//delay animation
 		counter++;
 		if (charTextureSpriteLocation.x >= 576) {
 			charTextureSpriteLocation.x = 64;
@@ -56,10 +73,11 @@ void characterHandle::updateChar(int state,int direction) {
 		if (charTextureSpriteLocation.x == 0) {
 			charTextureSpriteLocation.x = 64;
 		}
+		//delay animation
+		counter++;
 		if (counter % charSpriteDelayRate == 0) {
 			charTextureSpriteLocation.x += 64;
-		}
-		counter++;
+		}		
 		if (charTextureSpriteLocation.x >= 768) {
 			charTextureSpriteLocation.x = 64;
 		}

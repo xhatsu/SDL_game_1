@@ -10,3 +10,13 @@ void entityControl::loadEntityList() {
 		entityList.at(i).updateEntity();
 	}
 }
+bool entityControl::arrowHitCheck(double aimAngle,entity a) {
+	double entityAngle = angleCaluculate(a.objectRenderCordinate.x, a.objectRenderCordinate.y);
+	if (abs(entityAngle-aimAngle)<5) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	return false;
+}

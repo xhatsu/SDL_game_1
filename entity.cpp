@@ -100,6 +100,13 @@ void entity::updateEntity() {
 			}
 			if (delayAction % 3 == 0) {
 				moveEntity(direction);
+				/*switch (direction) {
+				case LEFT:
+					if (delayAction)
+					break;
+				default:
+					break;
+				};*/
 				//moveEntity(delayAction % 4);
 			}
 			//printf("\n%d", int(objectTexturePollList.size()));
@@ -158,11 +165,11 @@ void entity::moveEntity(int direction) {
 	}
 }
 void entity::setObjRenderCordinate() {
-	if (type == tree) {
+	if (type == rabbit) {
 		int prefix_X = ObjCol.x - charCol.x;
 		int prefix_Y = ObjCol.y - charCol.y;
 		objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w / 2;
-		objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h + 16;
+		objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h / 2;
 	}
 }
 
