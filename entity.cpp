@@ -1,6 +1,6 @@
 #include "entity.h"
 #include"object_type.h"
-entity::entity(int x, int y, int type) {
+entity::entity(int x, int y, int type,int state = eSTANDING) {
 	ObjCol.x = x;
 	ObjCol.y = y;
 	this->type = type;
@@ -26,32 +26,7 @@ entity::entity(int x, int y, int type) {
 	setObjRenderCordinate();
 
 }
-entity::entity(int x, int y, int type,int state) {
-	ObjCol.x = x;
-	ObjCol.y = y;
-	this->type = type;
-	textureCounter = 0;
-	this->state = state;
-	direction = rand() % 3;
-	switch (type)
-	{
-	case rabbit:
-		ObjPlaceHolder.w = 32;
-		ObjPlaceHolder.h = 32;
-		ObjPlaceHolder.x = ObjCol.x - ObjPlaceHolder.w / 2;
-		ObjPlaceHolder.y = ObjCol.y - ObjPlaceHolder.h / 2;
-		objectDefaultTextureRect.x = 0;
-		objectDefaultTextureRect.y = 0;
-		objectDefaultTextureRect.w = 36;
-		objectDefaultTextureRect.h = 36;
-	default:
-		break;
-	}
-	objectRenderCordinate.w = objectDefaultTextureRect.w;
-	objectRenderCordinate.h = objectDefaultTextureRect.h;
-	setObjRenderCordinate();
 
-}
 SDL_Rect entity::getTextureRectPoll() {
 	SDL_Rect temp = objectTexturePollList.at(objectTexturePollList.size() - 1);
 	objectTexturePollList.pop_back();
@@ -170,6 +145,12 @@ void entity::setObjRenderCordinate() {
 		int prefix_Y = ObjCol.y - charCol.y;
 		objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w / 2;
 		objectRenderCordinate.y = middle_screen.y + prefix_Y - object_texture_rect.h / 2;
+	}
+	if (type == arrowType) {
+		int prefix_X = ObjCol.x - charCol.x;
+		int prefix_Y = ObjCol.y - charCol.y+32;
+		objectRenderCordinate.x = middle_screen.x + prefix_X;
+		objectRenderCordinate.y = middle_screen.y + prefix_Y;
 	}
 }
 

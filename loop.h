@@ -8,6 +8,7 @@
 #include<algorithm>
 extern double angleCaluculate(int mouseX, int mouseY);
 extern void correctDirection();
+extern void getMouseCordinate(int& mouseX, int& mouseY, int charColX, int charColY);
 //extern void updateChar(int charSpriteDelay);
 extern SDL_Window* main_window;
 extern SDL_Renderer* renderer;

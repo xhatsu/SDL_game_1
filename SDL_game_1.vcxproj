@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arrow.cpp" />
     <ClCompile Include="character_handle.cpp" />
     <ClCompile Include="chunk_control.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="render_process.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\Box.png" />
     <Image Include="resources\grass_background.png" />
     <Image Include="resources\loading_screen.png" />
     <Image Include="resources\mainChar_shadow.png" />
@@ -172,6 +174,7 @@
     <Image Include="resources\Tree_SpriteSheet_Outlined.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arrow.h" />
     <ClInclude Include="character_handle.h" />
     <ClInclude Include="chunk_control.h" />
     <ClInclude Include="entity.h" />

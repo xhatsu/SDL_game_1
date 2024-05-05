@@ -14,6 +14,7 @@ extern SDL_Texture* renderingScreen;
 extern SDL_Texture* treeTexture;
 extern SDL_Texture* rabbitTexture;
 extern SDL_Texture* boxTexture;
+extern SDL_Point middle_screen;
 extern bool Direction[DIRECTION_TOTAL];
 void correctDirection();
 SDL_Texture* loadTexture(std::string path);

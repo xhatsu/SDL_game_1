@@ -10,12 +10,12 @@ extern SDL_Point middle_screen;
 extern SDL_Point charCol;
 extern SDL_Texture* rabbitTexture;
 enum entityType {
-	rabbit = 0
+	rabbit = 0,
+	arrowType = 12
 };
 class entity
 {
 	public:
-		entity(int x, int y, int type);
 		int type;
 		int state;
 		int direction;

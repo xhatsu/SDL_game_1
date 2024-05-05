@@ -82,19 +82,24 @@ void loop() {
 				if (event_input.type == SDL_MOUSEMOTION) {
 					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 					mouseX = mouseX - 640;
-					mouseY = mouseY - 320;
+					mouseY = mouseY - 360;
+					if (aiming == true) {
+						aimAngle = angleCaluculate(mouseX, mouseY);
+						char1.direction = _aimDirection = aimDirection(mouseX, mouseY, aimAngle);
+						//printf("\naim angle: %f", aimAngle);
+					}
 				}
 				if (event_input.type == SDL_MOUSEBUTTONDOWN) {
 					//printf("\nevent");
 					if (event_input.button.button == SDL_BUTTON_LEFT) {
 						mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 						mouseX = mouseX - 640;
-						mouseY = mouseY - 320;
+						mouseY = mouseY - 360;
 						printf("\nx: %d", mouseX);
 						printf("\ny: %d", mouseY);
 						aimAngle = angleCaluculate(mouseX, mouseY);
-						printf("\naim: %f ", aimAngle);
-						_aimDirection = aimDirection(mouseX, mouseY, aimAngle);
+						printf("\naim angle: %f ", aimAngle);
+						char1.direction = _aimDirection = aimDirection(mouseX, mouseY, aimAngle);
 						printf("\naim direction: %d ", _aimDirection);
 						printf("\nclick");
 						aiming = true;
@@ -114,7 +119,7 @@ void loop() {
 					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 					if (aiming==true&&event_input.button.button ==SDL_BUTTON_LEFT) {
 						mouseX = mouseX - 640;
-						mouseY = mouseY - 320;
+						mouseY = mouseY - 360;
 						aiming = false;
 						//aimCounter = 0;
 						printf("\nup");
@@ -129,11 +134,11 @@ void loop() {
 					if (key_state[SDL_SCANCODE_L]) {
 						int x = charCol.x;
 						int y = charCol.y;
-						entity test = entity(x, y, rabbit);
+						entity test = entity(x, y, rabbit,eMOVING);
 						mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
-						printf("\n %d",mapEntityControl.entityList.size());
+						printf("\n %d %d",charCol.x,charCol.y);
 					}
 					if (key_state[SDL_SCANCODE_A]) {
 						Direction[LEFT] = true;
@@ -180,9 +185,10 @@ void loop() {
 				}
 				
 				correctDirection();
-				char1.direction = getDirection();
+				//char1.direction = getDirection();
 			}
 		}
+		//end input register
 		//is aiming
 		if (aiming == true&&charState==ATTACKING) {
 			//printf("\naiming");
@@ -193,12 +199,15 @@ void loop() {
 			char1.updateChar(charState, _aimDirection);	
 			map1.updateMap(true);
 			aimCounter++;
-			if (aimCounter > 13) {
+			if (aimCounter > 130) {
+				printf("\nshooted");
+				arrow newArrow=arrow(charCol.x,charCol.y-32,arrowType,-5,mouseX,mouseY,5,aimAngle);
+				mapEntityControl.arrowList.push_back(newArrow);
 				aimCounter = 0;
-				mapEntityControl.listArrowHitCheck(aimAngle);
 			}
 		}
 		else {
+			//if aiming previously -> reset to normal state
 			if (aimCounter != 0) {
 				printf("\n %d", aimCounter);
 				SDL_Delay(8);
@@ -206,7 +215,7 @@ void loop() {
 				mainBackGround.updateChunk(-1);
 				mapEntityControl.loadEntityList();
 				map1.updateMap(false);
-				char1.updateChar(MOVING, char1.direction);
+				char1.updateChar(charState, char1.direction);
 				map1.updateMap(true);
 				aimCounter = 0;
 				char1.resetAim();
@@ -216,12 +225,13 @@ void loop() {
 		//update chunk
 		chunkIndexX_new = charCol.x / 720;
 		if (charCol.x < 0) {
-			chunkIndexX_new--;
+			chunkIndexX_new--; //fix chunk (0,0) error
 		}
 		chunkIndexY_new = charCol.y / 720;
 		if (charCol.y < 0) {
-			chunkIndexY_new--;
+			chunkIndexY_new--; //fix chunk (0,0) error
 		}
+		//check if moving to new chunk
 		if (chunkIndexX != chunkIndexX_new || chunkIndexY != chunkIndexY_new) {
 			chunkIndexX = chunkIndexX_new;
 			chunkIndexY = chunkIndexY_new;
@@ -231,17 +241,18 @@ void loop() {
 			map1.arrangeObject();
 		}
 		//is moving
-		if (moveState == true&&charState==MOVING) {
+		if (moveState == true && charState == MOVING) {
 			//printf("\nmoving");
 			WaitForInput = false;
 			if (Direction[LEFT]) {
 				//printf("l");
 				charCol.x -= speed;
+				char1.direction = LEFT;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
-					mainBackGround.updateChunk(LEFT);
+					mainBackGround.updateChunk(char1.direction);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(charState, LEFT);
+					char1.updateChar(charState, char1.direction);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -257,11 +268,13 @@ void loop() {
 			if (Direction[RIGHT]) {
 				//printf("r");
 				charCol.x += speed;
+				char1.direction = RIGHT;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
-					mainBackGround.updateChunk(RIGHT);
+					//printf("\n direction: %d", char1.direction);
+					mainBackGround.updateChunk(char1.direction);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(charState, RIGHT);
+					char1.updateChar(charState, char1.direction);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -278,11 +291,12 @@ void loop() {
 			if (Direction[UP]) {
 				//printf("u");
 				charCol.y -= speed;
+				char1.direction = UP;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
-					mainBackGround.updateChunk(UP);
+					mainBackGround.updateChunk(char1.direction);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(charState, UP);
+					char1.updateChar(charState, char1.direction);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -291,18 +305,19 @@ void loop() {
 					mainBackGround.updateChunk(-1);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(STANDSTILL,char1.direction);
+					char1.updateChar(STANDSTILL, char1.direction);
 					map1.updateMap(true);
 				}
 			}
 			if (Direction[DOWN]) {
 				//printf("do");
 				charCol.y += speed;
+				char1.direction = DOWN;
 				if (!map1.mapCollisionControl.CollisionCheckListPLayer()) {
-					mainBackGround.updateChunk(DOWN);
+					mainBackGround.updateChunk(char1.direction);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(charState, DOWN);
+					char1.updateChar(charState, char1.direction);
 					map1.updateMap(true);
 					distance += speed;
 				}
@@ -311,7 +326,7 @@ void loop() {
 					mainBackGround.updateChunk(-1);
 					mapEntityControl.loadEntityList();
 					map1.updateMap(false);
-					char1.updateChar(STANDSTILL,char1.direction);
+					char1.updateChar(STANDSTILL, char1.direction);
 					map1.updateMap(true);
 				}
 			}
@@ -321,13 +336,14 @@ void loop() {
 			//mapEntityControl.loadEntityList();
 		}
 		//not moving
-		else if (moveState == false&&aiming==false) {
+		else if (moveState == false && aiming == false) {
 			//printf("\n standing");
 			if (true) {
 				charState = STANDSTILL;
 				mainBackGround.updateChunk(-1);
 				mapEntityControl.loadEntityList();
 				map1.updateMap(false);
+				//printf("\n direction: %d",char1.direction);
 				char1.updateChar(charState, char1.direction);
 				map1.updateMap(true);
 				WaitForInput = true;
@@ -342,6 +358,7 @@ void loop() {
 				map1.updateMap(true);
 			}*/
 		}
+		//SDL_Delay(25);
 		if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 			SDL_Delay(int(delay * MovementDelayRate));
 		}
@@ -349,7 +366,9 @@ void loop() {
 			SDL_Delay(delay);
 		}
 		map1.updateCheckList();
+		mapEntityControl.listArrowHitCheck(aimAngle);
 		//render to screen
+		SDL_RenderDrawPoint(renderer, 640,360);
 		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(main_window);
 		//fps cap

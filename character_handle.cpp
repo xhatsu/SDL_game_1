@@ -97,9 +97,10 @@ characterHandle::characterHandle() {
 	charTextureSpriteLocation.w = 64;
 	charTextureSpriteLocation.h = 64;
 	charRenderLocation.x = 1280 / 2 - 32;
-	charRenderLocation.y = 720 / 2 - 64;
+	charRenderLocation.y = 720 / 2 - 32;
 	charRenderLocation.w = 64;
 	charRenderLocation.h = 64;
+	direction = 0;
 	state = -1;
 	counter = 0;
 	charSpriteDelayRate = 11;

@@ -51,6 +51,9 @@
     <ClCompile Include="entity_control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png">
@@ -78,6 +81,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\Rabbit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\Box.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -134,6 +140,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EntityState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
