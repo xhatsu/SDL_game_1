@@ -160,6 +160,7 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="loop.cpp" />
     <ClCompile Include="render_process.cpp" />
+    <ClCompile Include="TimeControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\Box.png" />
@@ -193,6 +194,7 @@
     <ClInclude Include="object_type.h" />
     <ClInclude Include="global_header.h" />
     <ClInclude Include="render_process.h" />
+    <ClInclude Include="TimeCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="prefix.txt" />

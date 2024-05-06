@@ -5,19 +5,19 @@ entity::entity(int x, int y, int type,int state = eSTANDING) {
 	ObjCol.y = y;
 	this->type = type;
 	textureCounter = 0;
-	state = eSTANDING; 
 	direction = rand() % 3;
 	switch (type)
 	{
 	case rabbit:
 		ObjPlaceHolder.w = 32;
 		ObjPlaceHolder.h = 32;
-		ObjPlaceHolder.x = ObjCol.x - ObjPlaceHolder.w / 2;
-		ObjPlaceHolder.y = ObjCol.y - ObjPlaceHolder.h / 2;
+		ObjPlaceHolder.x = ObjCol.x;
+		ObjPlaceHolder.y = ObjCol.y;
 		objectDefaultTextureRect.x = 0;
 		objectDefaultTextureRect.y = 0;
 		objectDefaultTextureRect.w = 36;
 		objectDefaultTextureRect.h = 36;
+		break;
 	default:
 		break;
 	}
@@ -95,6 +95,8 @@ void entity::updateEntity() {
 		default:
 			break;
 		}
+	ObjPlaceHolder.x = ObjCol.x-ObjPlaceHolder.w/2;
+	ObjPlaceHolder.y = ObjCol.y-ObjPlaceHolder.h-ObjPlaceHolder.h/2;
 	loadEntity(renderer);
 	delayAction++;
 	if (delayAction > 500) {
@@ -115,6 +117,7 @@ void entity::loadEntity(SDL_Renderer* renderer) {
 	{
 	case rabbit:
 		//printf("\nsize: %d", int(objectTexturePollList.size()));
+		//SDL_RenderDrawRect(renderer, &objectRenderCordinate);
 		SDL_RenderCopy(renderer, rabbitTexture, &object_texture_rect, &objectRenderCordinate);
 		break;
 	default:

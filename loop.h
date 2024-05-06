@@ -5,6 +5,7 @@
 #include"map_process.h"
 #include"character_handle.h"
 #include"entity_control.h"
+#include"TimeCounter.h"
 #include<algorithm>
 extern double angleCaluculate(int mouseX, int mouseY);
 extern void correctDirection();

@@ -35,6 +35,7 @@ void loop() {
 	mapProcess map1;
 	characterHandle char1;
 	//test
+	TimeCounter newCounter = TimeCounter(50);
 	/*for (int i = 0; i < 1000; i++) {
 		int x = rand() % 600;
 		int y = rand() % 600;
@@ -138,7 +139,9 @@ void loop() {
 						mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
-						printf("\n %d %d",charCol.x,charCol.y);
+						if (newCounter.isRunning() == true) {
+							printf("\n %f", newCounter.getCurrentSecond());
+						}
 					}
 					if (key_state[SDL_SCANCODE_A]) {
 						Direction[LEFT] = true;
@@ -332,6 +335,12 @@ void loop() {
 			}
 			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
 				//charSpriteDelayRate -= 2;
+				if (aiming == false) {
+					charState = STANDSTILL;
+				}
+				else {
+					charState = ATTACKING;
+				}
 			}
 			//mapEntityControl.loadEntityList();
 		}
@@ -359,7 +368,7 @@ void loop() {
 			}*/
 		}
 		//SDL_Delay(25);
-		if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
+		if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0&&aiming==false) {
 			SDL_Delay(int(delay * MovementDelayRate));
 		}
 		else {

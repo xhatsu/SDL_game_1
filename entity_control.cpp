@@ -17,11 +17,8 @@ void entityControl::loadEntityList() {
 	}
 }
 bool entityControl::arrowHitCheck(arrow ar,entity a) {
-	if ((ar.ObjCol.x + 8 >= a.ObjCol.x - a.ObjPlaceHolder.w / 2) && ar.ObjCol.x - 8 <= a.ObjCol.x + a.ObjPlaceHolder.w / 2) {
-		if ((ar.ObjCol.y + 8 >= a.ObjCol.y - a.ObjPlaceHolder.h / 2) && (ar.ObjCol.y - 8 <= a.ObjCol.y + a.ObjPlaceHolder.h / 2)) {
-			//printf("\n blocked");
-			return true;
-		}
+	if (SDL_PointInRect(&ar.ObjCol, &a.ObjPlaceHolder)) {
+		return true;
 	}
 	return false;
 }
@@ -34,4 +31,13 @@ void entityControl::listArrowHitCheck(double aimAngle) {
 			}
 		}
 	}
+}
+void entityControl::spawnRandomEntity(int colX, int colY) {
+	if (entityList.size() >= 128) {
+		return;
+	}
+	int x = colX + rand() % 1280 - 640;
+	int y = colY + rand() % 1280 - 640;
+	entity test = entity(x, y, rabbit, eMOVING);
+	entityList.push_back(test);
 }
