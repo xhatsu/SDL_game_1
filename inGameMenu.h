@@ -10,7 +10,7 @@ class inGameMenu
 {
 public:
 	SDL_Rect topLeftInfo;
-	SDL_Rect firstGameGuide;
+	SDL_Rect startLevelInfo;
 	SDL_Rect startLevelButton;
 	int currentLevel;
 	int levelTarget;
@@ -21,13 +21,13 @@ public:
 		topLeftInfo.y = 0;
 		topLeftInfo.w = 300;
 		topLeftInfo.h = 110;
-		firstGameGuide.x = 300;
-		firstGameGuide.y = 300;
-		firstGameGuide.w = 512;
-		firstGameGuide.h = 512;
-		startLevelButton.x = 600;
-		startLevelButton.y = 600;
-		startLevelButton.w = 50;
+		startLevelInfo.x = 384;
+		startLevelInfo.y = 104;
+		startLevelInfo.w = 512;
+		startLevelInfo.h = 512;
+		startLevelButton.x = 540;
+		startLevelButton.y = 500;
+		startLevelButton.w = 200;
 		startLevelButton.h = 50;
 		currentLevel = level;
 		timeLeft = time;
@@ -73,6 +73,49 @@ public:
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 		SDL_FreeSurface(textSurface);
+	}
+	void renderStartLevel() {
+		renderTransparentBlackRectangle(renderer, startLevelInfo, 178);
+		std::string levelString = "Level: " + std::to_string(currentLevel);
+		int minute = timeLeft / 60;
+		int second = timeLeft - minute * 60;
+		std::string timeString = "Time: " + std::to_string(minute) + ":" + std::to_string(second);
+		std::string targetString = "Target: " + std::to_string(levelTarget);
+		SDL_Rect textRect;
+		textRect.x = startLevelInfo.x;
+		textRect.y = startLevelInfo.y;
+		textRect.w = startLevelInfo.w;
+		textRect.h = startLevelInfo.h;
+		SDL_Color textColor = { 255,255,255 };
+		SDL_Surface* textSurface;
+		SDL_Texture* textTexture;
+		//render level string
+		textSurface = TTF_RenderText_Solid(pixelFont, levelString.c_str(), textColor);
+		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		//render time string
+		textRect.y += 50;
+		textSurface = TTF_RenderText_Solid(pixelFont, timeString.c_str(), textColor);
+		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		//render target string
+		textRect.y += 50;
+		textSurface = TTF_RenderText_Solid(pixelFont, targetString.c_str(), textColor);
+		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		//render start button
+		SDL_SetRenderDrawColor(renderer, 0, 255, 127,128);
+		SDL_RenderFillRect(renderer, &startLevelButton);
+		std::string startLevel = "Start Level";
+		textRect.x = startLevelButton.x+3;
+		textRect.y = startLevelButton.y+15;
+		textSurface = TTF_RenderText_Solid(pixelFont, startLevel.c_str(), textColor);
+		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 	}
 };
 

@@ -5,6 +5,7 @@ class GameControl
 {
 public:
 	int level;
+	bool fail = false;
 	int spawnRate;
 	bool gameStart;
 	int levelTarget;
@@ -45,6 +46,31 @@ public:
 		}
 		else {
 			return levelDuration;
+		}
+	}
+	void updateLevel() {
+		level++;
+		targetKilled = 0;
+		gameStart = false;
+		levelTimeLeft = levelDuration;
+	}
+	void resetGame() {
+		level = 1;
+		spawnRate = 0;
+		gameStart = false;
+		levelTarget = 5;
+		targetKilled = 0;
+		levelDuration = std::chrono::seconds(30);
+		levelTimeLeft = levelDuration;
+	}
+	void gameUpdate() {
+		if (targetKilled >= levelTarget) {
+			updateLevel();
+		}
+		if (targetKilled < levelTarget) {
+			if (levelTimeLeft == std::chrono::seconds(0)) {
+				fail=true;
+			}
 		}
 	}
 

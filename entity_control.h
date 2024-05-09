@@ -17,7 +17,7 @@ public:
 	void addEntity(entity a);
 	void loadEntityList();
 	bool arrowHitCheck(arrow ar, entity a);
-	void listArrowHitCheck(double aimAngle);
+	void listArrowHitCheck(int& hitNumber);
 	void spawnRandomEntity(int colX, int colY);
 };
 

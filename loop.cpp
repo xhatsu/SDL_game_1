@@ -355,7 +355,7 @@ void loop() {
 		}
 		//update data
 		map1.updateCheckList();
-		mapEntityControl.listArrowHitCheck(aimAngle);
+		mapEntityControl.listArrowHitCheck(game1.targetKilled);
 		game1.getTimeLeft();
 		inGameMenu1.updateData(game1.level, static_cast<int>(game1.levelTimeLeft.count()), game1.targetKilled, game1.levelTarget);
 		inGameMenu1.renderTopLeft();

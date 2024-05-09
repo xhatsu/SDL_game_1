@@ -22,12 +22,13 @@ bool entityControl::arrowHitCheck(arrow ar,entity a) {
 	}
 	return false;
 }
-void entityControl::listArrowHitCheck(double aimAngle) {
+void entityControl::listArrowHitCheck(int& hitNumber) {
 	for (int i = 0; i < entityList.size(); i++) {
 		for (int j = 0; j < arrowList.size(); j++) {
 			if (arrowHitCheck(arrowList.at(j), entityList.at(i))) {
 				entityList.erase(entityList.begin()+i);
 				arrowList.erase(arrowList.begin() + j);
+				hitNumber++;
 			}
 		}
 	}
