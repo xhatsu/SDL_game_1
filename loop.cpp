@@ -30,18 +30,13 @@ int aimDirection(int mouseX,int mouseY,double aimAngle) {
 }
 void loop() {
 	int delay=5;
-	//SDL_Delay(100);
 	entityControl mapEntityControl;
 	mapProcess map1;
 	characterHandle char1;
+	GameControl game1;
+	inGameMenu inGameMenu1(game1.level, static_cast<int>(game1.levelDuration.count()),game1.levelTarget);
 	//test
 	TimeCounter newCounter = TimeCounter(50);
-	/*for (int i = 0; i < 1000; i++) {
-		int x = rand() % 600;
-		int y = rand() % 600;
-		entity test = entity(x, y, rabbit);
-		mapEntityControl.entityList.push_back(test);
-	}*/
 	//action initialize
 	int charState=MOVING;
 	bool aiming = false;
@@ -58,7 +53,6 @@ void loop() {
 	map1.updateCheckList();
 	//first time render
 	mainBackGround.updateChunk(-1);
-	//printf("d");
 	map1.updateMap(false);
 	char1.updateChar(MOVING, -1);
 	mapEntityControl.loadEntityList();
@@ -74,7 +68,6 @@ void loop() {
 	//start loop
 	while (quit == false) {
 		//polling event
-		//SDL_Delay(10);
 		while (SDL_PollEvent(&event_input)) {
 			
 			if (event_input.type == SDL_QUIT) { quit = true; }
@@ -139,9 +132,7 @@ void loop() {
 						mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
-						if (newCounter.isRunning() == true) {
-							printf("\n %f", newCounter.getCurrentSecond());
-						}
+						game1.startGame();
 					}
 					if (key_state[SDL_SCANCODE_A]) {
 						Direction[LEFT] = true;
@@ -333,17 +324,14 @@ void loop() {
 					map1.updateMap(true);
 				}
 			}
-			if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0) {
-				//charSpriteDelayRate -= 2;
-				if (aiming == false) {
-					charState = STANDSTILL;
-				}
-				else {
-					charState = ATTACKING;
-				}
-			}
-			//mapEntityControl.loadEntityList();
+			//if ((Direction[LEFT] == true && Direction[RIGHT] == true) || (Direction[UP] == true && Direction[DOWN] == true)) {
+			//	//charSpriteDelayRate -= 2;
+			//	if (aiming == false) {
+			//		charState = STANDSTILL;
+			//	}
+			//}
 		}
+		
 		//not moving
 		else if (moveState == false && aiming == false) {
 			//printf("\n standing");
@@ -357,15 +345,6 @@ void loop() {
 				map1.updateMap(true);
 				WaitForInput = true;
 			}
-			/*if (WaitForInput==true) {
-				printf("c");
-				charState = STANDSTILL;
-				mainBackGround.updateChunk(-1);
-				map1.updateMap(false);
-				char1.updateChar(charState, -1);
-				mapEntityControl.loadEntityList();
-				map1.updateMap(true);
-			}*/
 		}
 		//SDL_Delay(25);
 		if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0&&aiming==false) {
@@ -374,10 +353,13 @@ void loop() {
 		else {
 			SDL_Delay(delay);
 		}
+		//update data
 		map1.updateCheckList();
 		mapEntityControl.listArrowHitCheck(aimAngle);
+		game1.getTimeLeft();
+		inGameMenu1.updateData(game1.level, static_cast<int>(game1.levelTimeLeft.count()), game1.targetKilled, game1.levelTarget);
+		inGameMenu1.renderTopLeft();
 		//render to screen
-		SDL_RenderDrawPoint(renderer, 640,360);
 		SDL_RenderPresent(renderer);
 		SDL_UpdateWindowSurface(main_window);
 		//fps cap

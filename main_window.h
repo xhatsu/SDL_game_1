@@ -2,6 +2,7 @@
 #include<SDL.h>
 #include<stdio.h>
 #include<SDL_image.h>>
+#include<SDL_ttf.h>
 extern SDL_Window* main_window;
 extern SDL_Renderer* renderer;
 const int SCREEN_WIDTH = 1280;

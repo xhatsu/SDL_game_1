@@ -6,6 +6,8 @@
 #include"character_handle.h"
 #include"entity_control.h"
 #include"TimeCounter.h"
+#include"GameControl.h"
+#include"inGameMenu.h"
 #include<algorithm>
 extern double angleCaluculate(int mouseX, int mouseY);
 extern void correctDirection();

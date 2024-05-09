@@ -2,7 +2,6 @@
 bool InitWindow() {
 	bool success_state = true;
 	//initialize
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("SDL could not initialize. SDL_ERROR: ", SDL_GetError());
 		success_state = false;
@@ -25,6 +24,10 @@ bool InitWindow() {
 				{
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success_state = false;
+				}
+				if (TTF_Init() < 0) {
+					success_state = false;
+					printf("SDL_ttf could not initialize! %s\n ", TTF_GetError());
 				}
 			}
 

@@ -27,6 +27,12 @@ void correctDirection() {
 	if (Direction[DOWN] == false || Direction[RIGHT] == false) {
 		Direction[DOWN_RIGHT] = false;
 	}
+	if ((Direction[LEFT] == true && Direction[RIGHT] == true) || (Direction[UP] == true && Direction[DOWN] == true)) {
+		Direction[LEFT] == false;
+		Direction[RIGHT] == false;
+		Direction[UP] == false;
+		Direction[DOWN] == false;
+	}
 }
 SDL_Texture* loadTexture(std::string path) {
 	//define optimized surface
@@ -35,14 +41,14 @@ SDL_Texture* loadTexture(std::string path) {
 	//load surface from image
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL) {
-		printf("Error load image to surface, IMG_Error: \n", IMG_GetError());
+		printf("Error load image to surface, IMG_Error: %s\n", IMG_GetError());
 	}
 	else
 	{
 		//create texture from surface
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == NULL) {
-			printf("cannot cannot create texture from surface", SDL_GetError());
+			printf("cannot cannot create texture from surface %s", SDL_GetError());
 		}
 		SDL_FreeSurface(loadedSurface);
 	}
@@ -65,6 +71,11 @@ bool loadGlobalMedia() {
 	renderingScreen = loadTexture("resources/renderingScreen.png");
 	if (renderingScreen == NULL) {
 		printf("error loading rendering_screen");
+		success_state = false;
+	}
+	pixelFont = TTF_OpenFont("resources/PublicPixel-E447g.ttf",18);
+	if (pixelFont == NULL) {
+		printf("cannot load font");
 		success_state = false;
 	}
 	return success_state;
@@ -96,4 +107,21 @@ double angleCaluculate(int corX, int corY) {
 	double tan = d / k;
 	double arctan = atan(tan);
 	return arctan * 180 / 3.1415;
+}
+void renderTransparentBlackRectangle(SDL_Renderer* renderer, SDL_Rect const & rect,int alpha) {
+	// Save the current draw color
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+
+	// Set the blend mode for the renderer to blend the alpha channel
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+	// Set the draw color to black with 50% transparency
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, alpha);
+
+	// Render the rectangle
+	SDL_RenderFillRect(renderer, &rect);
+
+	// Restore the original draw color
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 }

@@ -14,6 +14,7 @@ SDL_Texture* renderingScreen = NULL;
 SDL_Texture* treeTexture = NULL;
 SDL_Texture* rabbitTexture = NULL;
 SDL_Texture* boxTexture = NULL;
+TTF_Font* pixelFont = NULL;
 backGround mainBackGround;
 bool Direction[8];
 int speed = 2;
