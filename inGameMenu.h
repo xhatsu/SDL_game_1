@@ -12,10 +12,13 @@ public:
 	SDL_Rect topLeftInfo;
 	SDL_Rect startLevelInfo;
 	SDL_Rect startLevelButton;
+	SDL_Surface* textSurface=NULL;
+	SDL_Texture* textTexture=NULL;
 	int currentLevel;
 	int levelTarget;
 	int timeLeft;
 	int targetKilled;
+	int highestLevel;
 	inGameMenu(int level,int time,int target) {
 		topLeftInfo.x = 0;
 		topLeftInfo.y = 0;
@@ -34,11 +37,12 @@ public:
 		targetKilled = 0;
 		levelTarget = target;
 	}
-	void updateData(int level, int time, int killed,int target) {
+	void updateData(int level, int time, int killed,int target,int highest) {
 		currentLevel = level;
 		timeLeft = time;
 		targetKilled = killed;
 		levelTarget = target;
+		highestLevel = highest;
 	}
 	void renderTopLeft() {
 		renderTransparentBlackRectangle(renderer,topLeftInfo ,178);
@@ -48,11 +52,11 @@ public:
 		int second = timeLeft - minute * 60;
 		std::string timeLeftString = "Time left: " + std::to_string(minute) + ":" + std::to_string(second);
 		std::string killedString = "Target: " + std::to_string(targetKilled) + "/" + std::to_string(levelTarget);
-		SDL_Surface* textSurface;
-		SDL_Texture* textTexture;
+
 		//print current level
 		textSurface = TTF_RenderText_Solid(pixelFont, levelString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_FreeSurface(textSurface);
 		SDL_Rect textRect;
 		textRect.x = 10;
 		textRect.y = 5;
@@ -60,18 +64,22 @@ public:
 		textRect.h = topLeftInfo.h;
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
 		//print time left
 		textSurface = TTF_RenderText_Solid(pixelFont, timeLeftString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_FreeSurface(textSurface);
 		textRect.y += 35;
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
 		//print killed target
 		textSurface = TTF_RenderText_Solid(pixelFont, killedString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		textRect.y += 35;
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
 		SDL_FreeSurface(textSurface);
 	}
 	void renderStartLevel() {
@@ -81,31 +89,44 @@ public:
 		int second = timeLeft - minute * 60;
 		std::string timeString = "Time: " + std::to_string(minute) + ":" + std::to_string(second);
 		std::string targetString = "Target: " + std::to_string(levelTarget);
+		std::string highestString = "Highest level: " + std::to_string(highestLevel);
 		SDL_Rect textRect;
-		textRect.x = startLevelInfo.x;
-		textRect.y = startLevelInfo.y;
+		textRect.x = startLevelInfo.x+25;
+		textRect.y = startLevelInfo.y+25;
 		textRect.w = startLevelInfo.w;
 		textRect.h = startLevelInfo.h;
 		SDL_Color textColor = { 255,255,255 };
-		SDL_Surface* textSurface;
-		SDL_Texture* textTexture;
 		//render level string
 		textSurface = TTF_RenderText_Solid(pixelFont, levelString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
+		SDL_FreeSurface(textSurface);
 		//render time string
 		textRect.y += 50;
 		textSurface = TTF_RenderText_Solid(pixelFont, timeString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
+		SDL_FreeSurface(textSurface);
 		//render target string
 		textRect.y += 50;
 		textSurface = TTF_RenderText_Solid(pixelFont, targetString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
+		SDL_FreeSurface(textSurface);
+		//render highest level
+		textRect.y += 50;
+		textSurface = TTF_RenderText_Solid(pixelFont, highestString.c_str(), textColor);
+		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
+		SDL_FreeSurface(textSurface);
 		//render start button
 		SDL_SetRenderDrawColor(renderer, 0, 255, 127,128);
 		SDL_RenderFillRect(renderer, &startLevelButton);
@@ -116,6 +137,9 @@ public:
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+		SDL_DestroyTexture(textTexture);
+		SDL_FreeSurface(textSurface);
+		
 	}
 };
 

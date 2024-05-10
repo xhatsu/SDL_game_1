@@ -171,7 +171,7 @@
     <Image Include="resources\mainChar_shadow.png" />
     <Image Include="resources\main_char_sprite_sheet.png" />
     <Image Include="resources\Rabbit.png" />
-    <Image Include="resources\renderingScreen.png" />
+    <Image Include="resources\menuScreen.png" />
     <Image Include="resources\Tree.png" />
     <Image Include="resources\Tree_SpriteSheet.png" />
     <Image Include="resources\Tree_SpriteSheet_Outlined.png" />

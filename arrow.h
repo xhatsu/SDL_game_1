@@ -12,7 +12,7 @@ public:
     // Calculate the direction vector
     int dx = des_x;
     int dy = des_y;
-    arrow(int x, int y, int type,int state, int des_x, int des_y, double speed,double angle) : entity(x, y, type, state), des_x(des_x), des_y(des_y), speed(speed), angle(angle) {
+    arrow(int x, int y, int type,int state, int des_x, int des_y, double speed,double angle) : entity(x, y, type, state,speed), des_x(des_x), des_y(des_y), speed(speed), angle(angle) {
         object_texture_rect.x = 0;
         object_texture_rect.y = 0;
         object_texture_rect.w = 15;

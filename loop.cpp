@@ -1,5 +1,4 @@
 #include"loop.h"
-//init processor
 int getDirection() {
 	for (int i = 0; i < 8; i++) {
 		if (Direction[i]) {
@@ -29,6 +28,7 @@ int aimDirection(int mouseX,int mouseY,double aimAngle) {
 	return -1;
 }
 void loop() {
+	//init processor
 	int delay=5;
 	entityControl mapEntityControl;
 	mapProcess map1;
@@ -38,6 +38,7 @@ void loop() {
 	//test
 	TimeCounter newCounter = TimeCounter(50);
 	//action initialize
+	int gameState = 0;
 	int charState=MOVING;
 	bool aiming = false;
 	int aimTime = 0;
@@ -72,7 +73,19 @@ void loop() {
 			
 			if (event_input.type == SDL_QUIT) { quit = true; }
 			//movement handle
-			if (true) {
+			if (game1.gameStart == false) {
+				if (event_input.type == SDL_MOUSEBUTTONDOWN) {
+					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
+					SDL_Point mouse;
+					mouse.x = mouseX;
+					mouse.y = mouseY;
+					if (SDL_PointInRect(&mouse, &inGameMenu1.startLevelButton)) {
+						SDL_Delay(100);
+						game1.startGame();
+					}
+				}
+			}
+			if (game1.gameStart==true) {
 				if (event_input.type == SDL_MOUSEMOTION) {
 					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 					mouseX = mouseX - 640;
@@ -125,10 +138,13 @@ void loop() {
 				if (event_input.type == SDL_KEYDOWN) {
 					//printf("\nevent");
 					//reset
+					if (key_state[SDL_SCANCODE_ESCAPE]) {
+						quit = true;
+					}
 					if (key_state[SDL_SCANCODE_L]) {
 						int x = charCol.x;
 						int y = charCol.y;
-						entity test = entity(x, y, rabbit,eMOVING);
+						entity test = entity(x, y, rabbit,eMOVING,1);
 						mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
@@ -333,7 +349,7 @@ void loop() {
 		}
 		
 		//not moving
-		else if (moveState == false && aiming == false) {
+		else if ((charState==MOVING && aiming == false)||game1.gameStart==false) {
 			//printf("\n standing");
 			if (true) {
 				charState = STANDSTILL;
@@ -356,12 +372,46 @@ void loop() {
 		//update data
 		map1.updateCheckList();
 		mapEntityControl.listArrowHitCheck(game1.targetKilled);
-		game1.getTimeLeft();
-		inGameMenu1.updateData(game1.level, static_cast<int>(game1.levelTimeLeft.count()), game1.targetKilled, game1.levelTarget);
-		inGameMenu1.renderTopLeft();
+		gameState = game1.gameUpdate();
+		//update based on game state
+		switch (gameState)
+		{
+		case -1:
+			char1.resetAim();
+			charState = STANDSTILL;
+			aimTime = 0;
+			for (int i = 0; i < 8; i++) {
+				Direction[i] = false;
+			}
+			mapEntityControl.entityList.clear();
+			mapEntityControl.arrowList.clear();
+			break;
+		case 1:
+			char1.resetAim();
+			charState = STANDSTILL;
+			aimTime = 0;
+			for (int i = 0; i < 8; i++) {
+				Direction[i] = false;
+			}
+			mapEntityControl.entityList.clear();
+			mapEntityControl.arrowList.clear();
+			break;
+		case 0:
+			mapEntityControl.spawnRandomEntity(game1.targetSpeed,game1.gameStart,charCol.x, charCol.y, game1.spawnRate, game1.spawnRange);
+			break;
+		default:
+			break;
+		}
+		inGameMenu1.updateData(game1.level, static_cast<int>(game1.levelTimeLeft.count()), game1.targetKilled, game1.levelTarget,game1.highestLevel);
+		if (game1.gameStart == true) {
+			inGameMenu1.renderTopLeft();
+		}
+		else {
+			inGameMenu1.renderStartLevel();
+		}
 		//render to screen
 		SDL_RenderPresent(renderer);
-		SDL_UpdateWindowSurface(main_window);
+		SDL_UpdateWindowSurface(main_window);		
 		//fps cap
 		int delta = SDL_GetTicks64() - start_loop;
 		if (delta < desiredDelta) {

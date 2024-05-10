@@ -86,7 +86,7 @@
     <Image Include="resources\loading_screen.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\renderingScreen.png">
+    <Image Include="resources\menuScreen.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\Rabbit.png">

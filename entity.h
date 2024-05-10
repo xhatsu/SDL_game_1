@@ -16,6 +16,7 @@ enum entityType {
 class entity
 {
 	public:
+		int speed;
 		int type;
 		int state;
 		int direction;
@@ -28,7 +29,7 @@ class entity
 		SDL_Rect object_texture_rect;
 		SDL_Rect objectDefaultTextureRect;
 		SDL_Rect getTextureRectPoll();
-		entity(int x, int y, int type,int state);
+		entity(int x, int y, int type,int state,int speed);
 		void updateEntity();
 		void loadEntity(SDL_Renderer* renderer);
 		void moveEntity(int direction);

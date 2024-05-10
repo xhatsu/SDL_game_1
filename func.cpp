@@ -65,12 +65,12 @@ bool loadGlobalMedia() {
 	}
 	loadingScreen = loadTexture("resources/loading_screen.png");
 	if (loadingScreen == NULL) {
-			printf("error loading char shadow");
+			printf("error loading loading screen");
 			success_state = false;
 	}
-	renderingScreen = loadTexture("resources/renderingScreen.png");
-	if (renderingScreen == NULL) {
-		printf("error loading rendering_screen");
+	menuScreen = loadTexture("resources/menuScreen.png");
+	if (menuScreen == NULL) {
+		printf("error loading menu screen");
 		success_state = false;
 	}
 	pixelFont = TTF_OpenFont("resources/PublicPixel-E447g.ttf",18);
@@ -98,6 +98,11 @@ bool loadTextureMedia() {
 		success_state = false;
 	}
 	return success_state;
+	grassTexture = loadTexture("resources/Grass.png");
+	if (boxTexture == NULL) {
+		printf("error loading object texture");
+		success_state = false;
+	}
 }
 double angleCaluculate(int corX, int corY) {
 	double d = double(corY);

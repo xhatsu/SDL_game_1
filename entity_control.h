@@ -18,6 +18,6 @@ public:
 	void loadEntityList();
 	bool arrowHitCheck(arrow ar, entity a);
 	void listArrowHitCheck(int& hitNumber);
-	void spawnRandomEntity(int colX, int colY);
+	void spawnRandomEntity(int eSpeed,bool isStarted,int colX, int colY,double spawnRate,int spawnRange);
 };
 

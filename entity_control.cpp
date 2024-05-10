@@ -33,12 +33,19 @@ void entityControl::listArrowHitCheck(int& hitNumber) {
 		}
 	}
 }
-void entityControl::spawnRandomEntity(int colX, int colY) {
+void entityControl::spawnRandomEntity(int eSpeed,bool isStarted,int colX, int colY,double spawnRate,int spawnRange) {
+	if (isStarted == false) {
+		return;
+	}
 	if (entityList.size() >= 128) {
 		return;
 	}
-	int x = colX + rand() % 1280 - 640;
-	int y = colY + rand() % 1280 - 640;
-	entity test = entity(x, y, rabbit, eMOVING);
-	entityList.push_back(test);
+	int x = colX + rand() % spawnRange - spawnRange/2;
+	int y = colY + rand() % spawnRange - spawnRange/2;
+	double randomNum = rand() % 100;
+	if (randomNum / 100 < spawnRate) {
+		entity test = entity(x, y, rabbit, eMOVING,eSpeed);
+		entityList.push_back(test);
+	}
+	
 }

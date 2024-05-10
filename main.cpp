@@ -9,7 +9,6 @@ int main(int argc, char* args[]) {
 			srand((int)time(NULL));
 			//rendering
 			SDL_Delay(100);
-			SDL_RenderCopy(renderer, renderingScreen, NULL, NULL);
 			int seed = rand();
 			printf("%d", seed);
 			render_process render_map1(seed,720,"mapData.json");
@@ -31,8 +30,25 @@ int main(int argc, char* args[]) {
 			//test
 			//pre render
 			SDL_RenderPresent(renderer);
+			int menuState=100;
+			//menu
+			while (menuState != -1) {
+				menuState = createGameMenu(renderer);
+				//printf("\n menu %d", menuState);
+				if (menuState == 0) {
+					SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
+					SDL_RenderPresent(renderer);
+					printf("\n start game");
+					quit = false;
+					loop();
+				}
+				if (menuState == 1) {
+					return 0;
+				}
+			}
+
 			//start loop
-			loop();
+			
 			
 		}
 		else {

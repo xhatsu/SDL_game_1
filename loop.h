@@ -16,7 +16,6 @@ extern void getMouseCordinate(int& mouseX, int& mouseY, int charColX, int charCo
 extern SDL_Window* main_window;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* grass_background;
-extern SDL_Texture* tree_texture_1;
 extern backGround mainBackGround;
 extern bool Direction[8];
 extern int speed;

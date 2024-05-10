@@ -36,9 +36,62 @@ bool InitWindow() {
 	}
 	return success_state;
 }
+int createGameMenu(SDL_Renderer* renderer) {
+	SDL_RenderCopy(renderer, menuScreen, NULL, NULL);
+    // Load the font and create a color for the text
+    SDL_Color textColor = { 255, 255, 255 }; // white color
+	int menuChoose = 100;
+    // Create the menu items
+    std::vector<std::string> menuItems = { "Start Game", "Exit" };
+    // Render the menu items
+    std::vector<SDL_Rect> menuItemRects(menuItems.size());
+    for (int i = 0; i < menuItems.size(); i++) {
+        SDL_Surface* textSurface = TTF_RenderText_Solid(pixelFont, menuItems[i].c_str(), textColor);
+        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        SDL_FreeSurface(textSurface);
+        SDL_Rect& textRect = menuItemRects[i];
+        textRect.x = 50;
+        textRect.y = 50 + i * 60;
+        SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        SDL_DestroyTexture(textTexture);
+    }
+    SDL_RenderPresent(renderer);
+
+    SDL_Event event_input;
+    while (SDL_WaitEvent(&event_input)) {
+        if (event_input.type == SDL_QUIT) {
+			return -1;
+            break;
+        }
+        else if (event_input.type == SDL_MOUSEBUTTONDOWN) {
+            int x, y;
+            SDL_GetMouseState(&x, &y);
+            for (int i = 0; i < menuItemRects.size(); i++) {
+				SDL_Point mouse;
+				mouse.x = x;
+				mouse.y = y;
+                if (SDL_PointInRect(&mouse, &menuItemRects[i])) {
+					menuChoose = i;
+                    break;
+                }
+            }
+        }
+    }
+	return menuChoose;
+}
 void close_window() {
 	SDL_DestroyWindow(main_window);
+	SDL_DestroyTexture(treeTexture);
+	SDL_DestroyTexture(grass_background);
+	SDL_DestroyTexture(mainChar_shadow);
+	SDL_DestroyTexture(loadingScreen);
+	SDL_DestroyTexture(menuScreen);
+	SDL_DestroyTexture(rabbitTexture);
+	SDL_DestroyTexture(boxTexture);
+	TTF_CloseFont(pixelFont);
 	printf("closed window");
 	SDL_Quit();
 	IMG_Quit();
+	TTF_Quit();
 }

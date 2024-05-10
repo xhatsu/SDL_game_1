@@ -1,11 +1,12 @@
 #include "entity.h"
 #include"object_type.h"
-entity::entity(int x, int y, int type,int state = eSTANDING) {
+entity::entity(int x=0, int y=0, int type=rabbit,int state = eSTANDING,int speed=1) {
 	ObjCol.x = x;
 	ObjCol.y = y;
 	this->type = type;
 	textureCounter = 0;
 	direction = rand() % 3;
+	this->speed = speed;
 	switch (type)
 	{
 	case rabbit:
@@ -103,7 +104,7 @@ void entity::updateEntity() {
 		delayAction = 0;
 	}
 	if (delayAction%100==1) {
-		int temp = rand() % 4;
+		int temp = rand() % 3;
 		if (temp == 2) {
 			delayAction = 0;
 			state = eSTART;
@@ -127,16 +128,16 @@ void entity::loadEntity(SDL_Renderer* renderer) {
 void entity::moveEntity(int direction) {
 	switch (direction) {
 	case UP:
-		ObjCol.y++;
+		ObjCol.y+=speed;
 		break;
 	case DOWN:
-		ObjCol.y--;
+		ObjCol.y-=speed;
 		break;
 	case LEFT:
-		ObjCol.x--;
+		ObjCol.x-=speed;
 		break;
 	case RIGHT:
-		ObjCol.x++;
+		ObjCol.x+=speed;
 		break;
 	default:
 		break;
