@@ -90,6 +90,9 @@ public:
 				
 			}
 		}
+		if (gameStart == false) {
+			return 2;
+		}
 		return 0;
 	}
 

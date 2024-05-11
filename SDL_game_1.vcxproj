@@ -155,6 +155,7 @@
     <ClCompile Include="GameControl.cpp" />
     <ClCompile Include="inGameMenu.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="map_process.cpp" />
     <ClCompile Include="object_type.cpp" />
     <ClCompile Include="func.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="CharState.h" />
     <ClInclude Include="GameControl.h" />
     <ClInclude Include="inGameMenu.h" />
+    <ClInclude Include="mainMenu.h" />
     <ClInclude Include="ObjectTypeEnum.h" />
     <ClInclude Include="loop.h" />
     <ClInclude Include="json.hpp" />

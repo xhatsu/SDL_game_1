@@ -18,7 +18,7 @@ public:
 	int levelTarget;
 	int timeLeft;
 	int targetKilled;
-	int highestLevel;
+	int highestLevel=0;
 	inGameMenu(int level,int time,int target) {
 		topLeftInfo.x = 0;
 		topLeftInfo.y = 0;

@@ -7,7 +7,7 @@ int main(int argc, char* args[]) {
 			loadTextureMedia();
 			SDL_RenderClear(renderer);
 			srand((int)time(NULL));
-			//rendering
+			//rendering map data
 			SDL_Delay(100);
 			int seed = rand();
 			printf("%d", seed);
@@ -18,6 +18,8 @@ int main(int argc, char* args[]) {
 					render_map1.renderChunk(i, j, 7);
 				}
 			}
+			//menu initialize
+			mainMenu mainMenu1;
 			render_map1.writeToFile();
 			//SDL_Delay(1000);
 			//loading
@@ -30,24 +32,16 @@ int main(int argc, char* args[]) {
 			//test
 			//pre render
 			SDL_RenderPresent(renderer);
-			int menuState=100;
 			//menu
-			while (menuState != -1) {
-				menuState = createGameMenu(renderer);
-				//printf("\n menu %d", menuState);
-				if (menuState == 0) {
+			while (mainMenu1.menuChoose !=-1) {
+				mainMenu1.loadMenu();
+				printf("\n menu state: %d", mainMenu1.menuChoose);
+				if (mainMenu1.menuChoose == 1) {
 					SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
-					SDL_RenderPresent(renderer);
-					printf("\n start game");
-					quit = false;
+					//start game
 					loop();
 				}
-				if (menuState == 1) {
-					return 0;
-				}
 			}
-
-			//start loop
 			
 			
 		}

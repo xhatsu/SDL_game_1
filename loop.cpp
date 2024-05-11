@@ -60,7 +60,6 @@ void loop() {
 	map1.updateMap(true);
 	SDL_Delay(1000);
 	//input handle
-	bool WaitForInput = true;
 	SDL_Event event_input;
 	const Uint8* key_state = SDL_GetKeyboardState(NULL);
 	int mouseX, mouseY;
@@ -253,7 +252,6 @@ void loop() {
 		//is moving
 		if (moveState == true && charState == MOVING) {
 			//printf("\nmoving");
-			WaitForInput = false;
 			if (Direction[LEFT]) {
 				//printf("l");
 				charCol.x -= speed;
@@ -350,7 +348,6 @@ void loop() {
 		
 		//not moving
 		else if ((charState==MOVING && aiming == false)||game1.gameStart==false) {
-			//printf("\n standing");
 			if (true) {
 				charState = STANDSTILL;
 				mainBackGround.updateChunk(-1);
@@ -359,8 +356,9 @@ void loop() {
 				//printf("\n direction: %d",char1.direction);
 				char1.updateChar(charState, char1.direction);
 				map1.updateMap(true);
-				WaitForInput = true;
 			}
+		}
+		if (charState == STANDSTILL && aiming == false) {
 		}
 		//SDL_Delay(25);
 		if (Direction[UP_LEFT] + Direction[UP_RIGHT] + Direction[DOWN_LEFT] + Direction[DOWN_RIGHT] != 0&&aiming==false) {
@@ -373,6 +371,7 @@ void loop() {
 		map1.updateCheckList();
 		mapEntityControl.listArrowHitCheck(game1.targetKilled);
 		gameState = game1.gameUpdate();
+		//printf("\n %d", gameState);
 		//update based on game state
 		switch (gameState)
 		{
@@ -390,11 +389,16 @@ void loop() {
 			char1.resetAim();
 			charState = STANDSTILL;
 			aimTime = 0;
+			aiming = false;
 			for (int i = 0; i < 8; i++) {
 				Direction[i] = false;
 			}
 			mapEntityControl.entityList.clear();
 			mapEntityControl.arrowList.clear();
+			break;
+		case 2:
+			charState = STANDSTILL;
+			aiming = false;
 			break;
 		case 0:
 			mapEntityControl.spawnRandomEntity(game1.targetSpeed,game1.gameStart,charCol.x, charCol.y, game1.spawnRate, game1.spawnRange);
@@ -407,6 +411,12 @@ void loop() {
 			inGameMenu1.renderTopLeft();
 		}
 		else {
+			mainBackGround.updateChunk(-1);
+			mapEntityControl.loadEntityList();
+			map1.updateMap(false);
+			char1.updateChar(charState, char1.direction);
+			map1.updateMap(true);
+			//printf("k");
 			inGameMenu1.renderStartLevel();
 		}
 		//render to screen
