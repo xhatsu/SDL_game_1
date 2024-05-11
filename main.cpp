@@ -18,10 +18,9 @@ int main(int argc, char* args[]) {
 					render_map1.renderChunk(i, j, 7);
 				}
 			}
+			render_map1.writeToFile();
 			//menu initialize
 			mainMenu mainMenu1;
-			render_map1.writeToFile();
-			//SDL_Delay(1000);
 			//loading
 			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize
@@ -38,8 +37,11 @@ int main(int argc, char* args[]) {
 				printf("\n menu state: %d", mainMenu1.menuChoose);
 				if (mainMenu1.menuChoose == 1) {
 					SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
+					SDL_RenderPresent(renderer);
 					//start game
 					loop();
+					//exit
+					mainMenu1.menuChoose = 0;
 				}
 			}
 			

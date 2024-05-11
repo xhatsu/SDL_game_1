@@ -25,5 +25,6 @@ int desiredDelta = 1000 / fps;
 bool moveState = false;
 bool quit = false;
 int distance = 0;
+std::string playerName="";
 SDL_Point charCol;
 SDL_Point middle_screen;

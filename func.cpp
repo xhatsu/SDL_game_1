@@ -73,7 +73,7 @@ bool loadGlobalMedia() {
 		printf("error loading menu screen");
 		success_state = false;
 	}
-	pixelFont = TTF_OpenFont("resources/PublicPixel-E447g.ttf",18);
+	pixelFont = TTF_OpenFont("resources/PixelEmulator-xq08.ttf",24);
 	if (pixelFont == NULL) {
 		printf("cannot load font");
 		success_state = false;

@@ -28,6 +28,8 @@ int aimDirection(int mouseX,int mouseY,double aimAngle) {
 	return -1;
 }
 void loop() {
+	printf("\n game start");
+	quit = false;
 	//init processor
 	int delay=5;
 	entityControl mapEntityControl;
