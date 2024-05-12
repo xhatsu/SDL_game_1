@@ -73,6 +73,9 @@ void loop() {
 		while (SDL_PollEvent(&event_input)) {
 			
 			if (event_input.type == SDL_QUIT) { quit = true; }
+			if (key_state[SDL_SCANCODE_ESCAPE]) {
+				quit = true;
+			}
 			//movement handle
 			if (game1.gameStart == false) {
 				if (event_input.type == SDL_MOUSEBUTTONDOWN) {

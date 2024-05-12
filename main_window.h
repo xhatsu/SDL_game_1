@@ -5,6 +5,7 @@
 #include<SDL_ttf.h>
 #include<string>
 #include<vector>
+extern SDL_Texture* submittingScore;
 extern SDL_Window* main_window;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* grass_background;

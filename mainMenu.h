@@ -35,12 +35,12 @@ class mainMenu
     backGround menuBackGround;
     entityControl menuEntityControl;
     mapProcess menuMapProcess;
-    SDL_Event event_input;
 public:
     int menuChoose = 0;
     mainMenu() {
+        printf("\n main menu class init");
         welcomeNameString = "ANONYMOUS";
-        welcomeNameRect.x = 300;
+        welcomeNameRect.x = 250;
         welcomeNameRect.y = 300;
         welcomeNameRect.w = 0;
         welcomeNameRect.h = 0;
@@ -60,7 +60,9 @@ public:
         nameInputRect.y = 0;
         nameInputRect.w = 0;
         nameInputRect.h = 0;
+        printf("\n dd");
         menuMapProcess.getChunkList("mapData.json");
+        printf("mapData loaded");
         leaderBoardRect.x = 800;
         leaderBoardRect.y = 150;
         leaderBoardRect.w = 400;
@@ -89,7 +91,7 @@ public:
                 SDL_Rect textRect;
 
                 //render welcome name
-                std::string welcomeString = "Welcome " + welcomeNameString;
+                std::string welcomeString = "Welcome " + welcomeNameString + " to Hunt 2D";
                 textSurface = TTF_RenderText_Blended(pixelFont, welcomeString.c_str(), textColorDefault);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 welcomeNameRect.w = textSurface->w;
@@ -173,9 +175,12 @@ public:
             if (playerName.size() != 0) {
                 welcomeNameString = playerName;
             }
+            else {
+            }
             //render to screen
             SDL_RenderPresent(renderer);
             //handle input
+            SDL_Event event_input;
             while (SDL_PollEvent(&event_input)) {
                 if (event_input.type == SDL_QUIT) {
                     menuChoose = -1;
@@ -278,10 +283,11 @@ public:
             bool renderText = false;
 
             // Handle events on queue
-            while (SDL_PollEvent(&e) != 0) {
+            while (SDL_WaitEvent(&e) != 0) {
                 // User requests quit
                 if (e.type == SDL_QUIT) {
                     quit = true;
+                    menuChoose = -1;
                 }
                 // Special key input
                 else if (e.type == SDL_KEYDOWN) {
@@ -299,6 +305,7 @@ public:
                         printf("xx");
                         quit = true;
                         playerName = inputText;
+                        printf( inputText.c_str());
                     }
                     // Handle copy
                     else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL) {
@@ -316,7 +323,7 @@ public:
                     if (!(SDL_GetModState() & KMOD_CTRL && (e.text.text[0] == 'c' || e.text.text[0] == 'C' || e.text.text[0] == 'v' || e.text.text[0] == 'V'))) {
                         // Append character
                         if (typed == false) {
-                            inputText.clear();
+                            inputText="";
                             typed = true;
                         }
                         inputText += e.text.text;
@@ -324,31 +331,21 @@ public:
                     }
                 }
             }
-
-            // Rerender text if needed
-            if (renderText||typed==false) {
-                // Text is not empty
-                if (inputText != "") {
-                    // Render new text
-                    textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
-                }
-                // Text is empty
-                else {
-                    // Render space texture
-                    textSurface = TTF_RenderText_Blended(font, " ", textColorDefault);
-                }
-                // Create texture from surface pixels
-                SDL_DestroyTexture(textTexture);
-                textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-                
+            if (quit == true) {
+                printf(inputText.c_str());
             }
+            textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
+            SDL_DestroyTexture(textTexture);
+            textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
             //set input rect
-            if (textSurface != NULL) {
+            if (true) {
                 inputRect.w = textSurface->w;
                 inputRect.h = textSurface->h;
                 inputRect.x = (1280 - inputRect.w) / 2;
                 inputRect.y = (720 - inputRect.h) / 2;
             }
+            SDL_FreeSurface(textSurface);
+            textSurface = NULL;
             // set background text
             backgroundRect.x = inputRect.x-25;
             backgroundRect.y = inputRect.y-5;
@@ -363,7 +360,7 @@ public:
             //SDL_RenderFillRect(renderer, &backgroundRect);
             renderTransparentBlackRectangle(renderer, backgroundRect, 135);
             SDL_RenderCopy(renderer, textTexture, NULL, &inputRect);
-
+            SDL_DestroyTexture(textTexture);
             // Update screen
             SDL_RenderPresent(renderer);
             int delta = SDL_GetTicks() - start_loop;
@@ -372,9 +369,9 @@ public:
                 SDL_Delay(desiredDelta - delta);
             }
         }
-
         // Disable text input
-        SDL_FreeSurface(textSurface);
+        printf("fa");
+        if (textSurface != NULL) { SDL_FreeSurface(textSurface); }
         SDL_DestroyTexture(textTexture);
         SDL_StopTextInput();
         nameInputFlag = false;

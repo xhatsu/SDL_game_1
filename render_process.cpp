@@ -35,13 +35,19 @@ void render_process::renderChunk(int CorX,int CorY,int number) {
     chunkList.push_back(chunk);
 }
 render_process::render_process(int seed, int sizeRange, std::string path) {
+    printf("\n render init");
     this->seed = seed;
     this->sizeRange = sizeRange;
     this->path = path;
 }
 void render_process::writeToFile() {
-    std::ofstream jsonFileOut(path);
+    printf("\n open to write");
+    std::ofstream jsonFileOut(path.c_str());
+    if (jsonFileOut.is_open()) {
+        printf("\n opened to write");
+    }
     outPutFile["chunkList"] = chunkList;
+    std::string a = outPutFile.dump(2);
     jsonFileOut << std::setw(4) << outPutFile;
     jsonFileOut.close();
 }

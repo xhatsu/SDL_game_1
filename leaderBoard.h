@@ -1,7 +1,7 @@
 #pragma once
 #define CURL_STATICLIB
 #include "curl\curl.h"
-#include"json.hpp";
+#include"json.hpp"
 #include<string>
 #include<vector>
 #include<iostream>

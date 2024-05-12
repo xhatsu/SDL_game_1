@@ -3,19 +3,19 @@ bool InitWindow() {
 	bool success_state = true;
 	//initialize
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("SDL could not initialize. SDL_ERROR: ", SDL_GetError());
+		printf("SDL could not initialize. SDL_ERROR: %s", SDL_GetError());
 		success_state = false;
 	}
 	else {
-		main_window = SDL_CreateWindow("SDL_game_1", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		main_window = SDL_CreateWindow("Hunt 2D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (main_window == NULL) {
-			printf("Window could not be created SDL_Error:\n", SDL_GetError());
+			printf("Window could not be created SDL_Error: %s\n", SDL_GetError());
 			success_state = false;
 		}
 		else {
 			renderer = SDL_CreateRenderer(main_window, -1, SDL_RENDERER_ACCELERATED);
 			if (renderer == NULL) {
-				printf("renderer cannot be created", SDL_GetError());
+				printf("renderer cannot be created %s", SDL_GetError());
 			}
 			else {
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -89,6 +89,7 @@ void close_window() {
 	SDL_DestroyTexture(menuScreen);
 	SDL_DestroyTexture(rabbitTexture);
 	SDL_DestroyTexture(boxTexture);
+	SDL_DestroyTexture(submittingScore);
 	TTF_CloseFont(pixelFont);
 	printf("closed window");
 	SDL_Quit();

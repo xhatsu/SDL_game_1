@@ -7,16 +7,23 @@ bool ColXSort(object a, object b) {
 	return (a.objectRenderCordinate.y < b.objectRenderCordinate.y);
 }
 void mapProcess::getChunkList(std::string path) {
-	std::ifstream mapFile(path);
+	std::ifstream mapFile;
+	mapFile.open(path.c_str());
+	;
+	if (mapFile.is_open()) {
+		printf("\nopened");
+	}
 	json fileObject = json::object();
+	
 	mapFile >> fileObject;
-	json chunkListJson=json::array();
+	printf("d");
+	json chunkListJson = json::array();
 	chunkListJson = fileObject["chunkList"];
 	int numberOfChunk = chunkListJson.size();
 	for (int i = 0; i < numberOfChunk; i++) {
 		json chunkJson = json::array();
 		chunkJson = chunkListJson.at(i);
-		chunk tempChunk(chunkJson["CorX"],chunkJson["CorY"]);
+		chunk tempChunk(chunkJson["CorX"], chunkJson["CorY"]);
 		json chunkObjectListJson = json::array();
 		chunkObjectListJson = chunkJson["chunkObjectList"];
 		int objectListSize = chunkObjectListJson.size();
@@ -27,6 +34,7 @@ void mapProcess::getChunkList(std::string path) {
 		//std::sort(tempChunk.chunkObjectList.begin(),tempChunk.chunkObjectList.end(),ColYSort);
 		chunkList.push_back(tempChunk);
 	}
+	printf("\nload");
 	mapFile.close();
 }
 void mapProcess::loadObjectList(bool isOver) {
@@ -34,7 +42,7 @@ void mapProcess::loadObjectList(bool isOver) {
 	if (!isOver) {
 		for (int i = 0; i < objectNumber; i++) {
 			if (objectList.at(i).ObjCol.y <= charCol.y)
-			{	
+			{
 				objectList.at(i).loadObject(renderer);
 			}
 		}
@@ -42,18 +50,18 @@ void mapProcess::loadObjectList(bool isOver) {
 	if (isOver) {
 		for (int i = 0; i < objectNumber; i++) {
 			if (objectList.at(i).ObjCol.y >= charCol.y)
-			{	
+			{
 				objectList.at(i).loadObject(renderer);
 			}
 		}
 	}
 }
-void mapProcess::updateMap(bool isOver) { 
+void mapProcess::updateMap(bool isOver) {
 	loadObjectList(isOver);
 }
 inline bool mapProcess::Collision::CollisionCheckPlayer(object a) {
-	if ((charCol.x + 8 >= a.ObjCol.x - a.ObjPlaceHolder.w/2)&&charCol.x-8<=a.ObjCol.x+a.ObjPlaceHolder.w/2) {
-		if ((charCol.y + 8 >= a.ObjCol.y - a.ObjPlaceHolder.h / 2)&&(charCol.y -8 <= a.ObjCol.y + a.ObjPlaceHolder.h / 2)) {
+	if ((charCol.x + 8 >= a.ObjCol.x - a.ObjPlaceHolder.w / 2) && charCol.x - 8 <= a.ObjCol.x + a.ObjPlaceHolder.w / 2) {
+		if ((charCol.y + 8 >= a.ObjCol.y - a.ObjPlaceHolder.h / 2) && (charCol.y - 8 <= a.ObjCol.y + a.ObjPlaceHolder.h / 2)) {
 			//printf("\n blocked");
 			return true;
 		}
@@ -79,7 +87,7 @@ void mapProcess::arrangeObject() {
 	std::sort(objectList.begin(), objectList.end(), ColYSort);
 	//std::sort(objectList.begin(), objectList.end(), ColXSort);
 }
-void mapProcess::arrangeChunk(int chunkIndexX,int chunkIndexY) {
+void mapProcess::arrangeChunk(int chunkIndexX, int chunkIndexY) {
 	activeChunk.clear();
 	for (int i = 0; i < chunkList.size(); i++) {
 		if (chunkList.at(i).CorX == chunkIndexX + 1 && chunkList.at(i).CorY == chunkIndexY) {

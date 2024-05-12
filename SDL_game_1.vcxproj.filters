@@ -107,6 +107,12 @@
     <Image Include="resources\submitting.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\Bunny.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\space.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global_header.h">
@@ -191,11 +197,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mapData.json">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="resources\PublicPixel-E447g.ttf">
       <Filter>Resource Files</Filter>
     </Font>
@@ -205,5 +206,10 @@
     <Font Include="resources\Bandar.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mapData.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

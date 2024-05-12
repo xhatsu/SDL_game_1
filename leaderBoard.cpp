@@ -8,16 +8,10 @@ void leaderBoard::setLeaderBoard(playerScore& a) {
 		leaderBoardList.push_back(a);
 		std::sort(leaderBoardList.begin(), leaderBoardList.end(), sortScore);
 		std::reverse(leaderBoardList.begin(), leaderBoardList.end());
-		for (int i = 0; i < leaderBoardList.size(); i++) {
-			//std::cout << leaderBoardList.at(i).playerName << " " << leaderBoardList.at(i).maxLevel << std::endl;
-		}
 		std::cout << "before";
 		while (leaderBoardList.size() > 5) {
 			leaderBoardList.pop_back();
 		}
-	}
-	for (int i = 0; i < leaderBoardList.size(); i++) {
-		//std::cout << leaderBoardList.at(i).playerName << " " << leaderBoardList.at(i).maxLevel << std::endl;
 	}
 	leaderBoardData["1"]["playerName"] = leaderBoardList[0].playerName;
 	leaderBoardData["1"]["playerScore"] = leaderBoardList[0].maxLevel;
