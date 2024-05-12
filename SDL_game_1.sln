@@ -5,14 +5,22 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDL_game_1", "SDL_game_1.vcxproj", "{23AAB363-83CB-4131-A069-42CEE5D63773}"
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Hunt2D", "..\Hunt2D\Hunt2D.aiproj", "{6945DE29-EA30-46F7-B064-5A81B2381031}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|x64 = All|x64
+		All|x86 = All|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23AAB363-83CB-4131-A069-42CEE5D63773}.All|x64.ActiveCfg = Release|x64
+		{23AAB363-83CB-4131-A069-42CEE5D63773}.All|x64.Build.0 = Release|x64
+		{23AAB363-83CB-4131-A069-42CEE5D63773}.All|x86.ActiveCfg = Release|Win32
+		{23AAB363-83CB-4131-A069-42CEE5D63773}.All|x86.Build.0 = Release|Win32
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Debug|x64.ActiveCfg = Debug|x64
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Debug|x64.Build.0 = Debug|x64
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Debug|x86.ActiveCfg = Debug|Win32
@@ -21,6 +29,18 @@ Global
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Release|x64.Build.0 = Release|x64
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Release|x86.ActiveCfg = Release|Win32
 		{23AAB363-83CB-4131-A069-42CEE5D63773}.Release|x86.Build.0 = Release|Win32
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.All|x64.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.All|x64.Build.0 = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.All|x86.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.All|x86.Build.0 = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Debug|x64.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Debug|x64.Build.0 = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Debug|x86.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Debug|x86.Build.0 = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Release|x64.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Release|x64.Build.0 = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Release|x86.ActiveCfg = DefaultBuild
+		{6945DE29-EA30-46F7-B064-5A81B2381031}.Release|x86.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

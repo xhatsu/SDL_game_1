@@ -71,20 +71,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\include;C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\lib;C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\include;C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\lib;C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\include;C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\lib;C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\include;C:\SDL extension\SDL2_ttf-2.22.0\include;C:\SDL extension\SDL2_image-2.8.2\include;C:\SDL2-2.30.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\CppExternalLibrary\curl-8.7.1\builds\libcurl-vc15-x64-release-static-ipv6-sspi-schannel\lib;C:\SDL extension\SDL2_ttf-2.22.0\lib\x64;C:\SDL extension\SDL2_image-2.8.2\lib\x64;C:\SDL2-2.30.0\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,7 +99,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;libcurl_a.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,7 +116,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;libcurl_a.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,7 +129,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;libcurl_a.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +146,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;libcurl_a.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
