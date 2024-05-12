@@ -1,7 +1,7 @@
 #pragma once
-#include<SDL.h>
-#include<SDL_image.h>
-#include<SDL_ttf.h>
+#include"SDL.h"
+#include"SDL_image.h"
+#include"SDL_ttf.h"
 #include<string>
 extern TTF_Font* pixelFont;
 extern SDL_Renderer* renderer;
