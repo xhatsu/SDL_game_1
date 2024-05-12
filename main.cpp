@@ -21,6 +21,8 @@ int main(int argc, char* args[]) {
 			render_map1.writeToFile();
 			//menu initialize
 			mainMenu mainMenu1;
+			leaderBoard leaderBoard1;
+			leaderBoard1.getLeaderBoard();
 			//loading
 			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize

@@ -5,6 +5,7 @@
 #include"loop.h"
 #include"mainMenu.h"
 #include"render_process.h"
+#include"leaderBoard.h"
 extern SDL_Renderer* renderer;
 extern SDL_Texture* grass_background;
 extern SDL_Texture* _main_char;
