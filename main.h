@@ -14,5 +14,6 @@ extern SDL_Texture* menuScreen;
 extern SDL_Rect _main_char_rect;
 extern SDL_Rect char_location_rect;
 extern bool quit;
+std::vector<playerScore> leaderBoardList;
 //test
 //test

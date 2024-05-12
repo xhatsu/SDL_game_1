@@ -8,6 +8,8 @@ int main(int argc, char* args[]) {
 			SDL_RenderClear(renderer);
 			srand((int)time(NULL));
 			//rendering map data
+			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
+			SDL_RenderPresent(renderer);
 			SDL_Delay(100);
 			int seed = rand();
 			printf("%d", seed);
@@ -21,8 +23,10 @@ int main(int argc, char* args[]) {
 			render_map1.writeToFile();
 			//menu initialize
 			mainMenu mainMenu1;
-			leaderBoard leaderBoard1;
+			//leaderBoard leaderBoard1;
+			//leaderBoard1.deleteLB();
 			leaderBoard1.getLeaderBoard();
+			leaderBoard1.updateLeaderBoard();
 			//loading
 			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize

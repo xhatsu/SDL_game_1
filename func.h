@@ -6,6 +6,7 @@
 #include "Direction.h"
 #include"json.hpp"
 #include<math.h>
+extern SDL_Texture* submittingScore;
 extern SDL_Texture* grass_background ;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* mainChar_shadow;

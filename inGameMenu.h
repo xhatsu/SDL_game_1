@@ -30,7 +30,7 @@ public:
 		startLevelInfo.h = 512;
 		startLevelButton.x = 540;
 		startLevelButton.y = 500;
-		startLevelButton.w = 200;
+		startLevelButton.w = 210;
 		startLevelButton.h = 50;
 		currentLevel = level;
 		timeLeft = time;
@@ -54,7 +54,7 @@ public:
 		std::string killedString = "Target: " + std::to_string(targetKilled) + "/" + std::to_string(levelTarget);
 
 		//print current level
-		textSurface = TTF_RenderText_Solid(pixelFont, levelString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, levelString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_FreeSurface(textSurface);
 		SDL_Rect textRect;
@@ -66,7 +66,7 @@ public:
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 		SDL_DestroyTexture(textTexture);
 		//print time left
-		textSurface = TTF_RenderText_Solid(pixelFont, timeLeftString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, timeLeftString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_FreeSurface(textSurface);
 		textRect.y += 35;
@@ -74,7 +74,7 @@ public:
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 		SDL_DestroyTexture(textTexture);
 		//print killed target
-		textSurface = TTF_RenderText_Solid(pixelFont, killedString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, killedString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		textRect.y += 35;
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
@@ -97,7 +97,7 @@ public:
 		textRect.h = startLevelInfo.h;
 		SDL_Color textColor = { 255,255,255 };
 		//render level string
-		textSurface = TTF_RenderText_Solid(pixelFont, levelString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, levelString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
@@ -105,7 +105,7 @@ public:
 		SDL_FreeSurface(textSurface);
 		//render time string
 		textRect.y += 50;
-		textSurface = TTF_RenderText_Solid(pixelFont, timeString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, timeString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
@@ -113,7 +113,7 @@ public:
 		SDL_FreeSurface(textSurface);
 		//render target string
 		textRect.y += 50;
-		textSurface = TTF_RenderText_Solid(pixelFont, targetString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, targetString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
@@ -121,7 +121,7 @@ public:
 		SDL_FreeSurface(textSurface);
 		//render highest level
 		textRect.y += 50;
-		textSurface = TTF_RenderText_Solid(pixelFont, highestString.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, highestString.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
@@ -131,9 +131,9 @@ public:
 		SDL_SetRenderDrawColor(renderer, 0, 255, 127,128);
 		SDL_RenderFillRect(renderer, &startLevelButton);
 		std::string startLevel = "Start Level";
-		textRect.x = startLevelButton.x+3;
+		textRect.x = startLevelButton.x+5;
 		textRect.y = startLevelButton.y+15;
-		textSurface = TTF_RenderText_Solid(pixelFont, startLevel.c_str(), textColor);
+		textSurface = TTF_RenderText_Blended(pixelFont, startLevel.c_str(), textColor);
 		textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
 		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);

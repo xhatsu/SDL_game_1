@@ -69,6 +69,9 @@
     <ClCompile Include="leaderBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="playerScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\grass_background.png">
@@ -99,6 +102,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="resources\Box.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\submitting.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -175,6 +181,9 @@
     <ClInclude Include="leaderBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="playerScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="prefix.txt">
@@ -188,6 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\PublicPixel-E447g.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="resources\PixelEmulator-xq08.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="resources\Bandar.ttf">
       <Filter>Resource Files</Filter>
     </Font>
   </ItemGroup>

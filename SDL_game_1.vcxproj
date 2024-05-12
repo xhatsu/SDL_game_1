@@ -163,6 +163,7 @@
     <ClCompile Include="main_window.cpp" />
     <ClCompile Include="background.cpp" />
     <ClCompile Include="loop.cpp" />
+    <ClCompile Include="playerScore.cpp" />
     <ClCompile Include="render_process.cpp" />
     <ClCompile Include="TimeControl.cpp" />
   </ItemGroup>
@@ -174,6 +175,7 @@
     <Image Include="resources\main_char_sprite_sheet.png" />
     <Image Include="resources\Rabbit.png" />
     <Image Include="resources\menuScreen.png" />
+    <Image Include="resources\submitting.png" />
     <Image Include="resources\Tree.png" />
     <Image Include="resources\Tree_SpriteSheet.png" />
     <Image Include="resources\Tree_SpriteSheet_Outlined.png" />
@@ -201,6 +203,7 @@
     <ClInclude Include="map_process.h" />
     <ClInclude Include="object_type.h" />
     <ClInclude Include="global_header.h" />
+    <ClInclude Include="playerScore.h" />
     <ClInclude Include="render_process.h" />
     <ClInclude Include="TimeCounter.h" />
   </ItemGroup>
@@ -211,6 +214,8 @@
     <None Include="mapData.json" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="resources\Bandar.ttf" />
+    <Font Include="resources\PixelEmulator-xq08.ttf" />
     <Font Include="resources\PublicPixel-E447g.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

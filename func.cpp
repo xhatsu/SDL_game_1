@@ -73,9 +73,14 @@ bool loadGlobalMedia() {
 		printf("error loading menu screen");
 		success_state = false;
 	}
-	pixelFont = TTF_OpenFont("resources/PixelEmulator-xq08.ttf",24);
+	pixelFont = TTF_OpenFont("resources/Bandar.ttf",36);
 	if (pixelFont == NULL) {
 		printf("cannot load font");
+		success_state = false;
+	}
+	submittingScore = loadTexture("resources/submitting.png");
+	if (submittingScore == NULL) {
+		printf("error loading menu screen");
 		success_state = false;
 	}
 	return success_state;

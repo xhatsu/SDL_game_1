@@ -3,6 +3,8 @@
 #include"Direction.h"
 #include"background.h"
 #include"chunk_control.h"
+#include"playerScore.h"
+#include"leaderBoard.h"
 //enumerations for easy array declare
 SDL_Window* main_window = NULL;
 SDL_Renderer* renderer = NULL;
@@ -14,7 +16,9 @@ SDL_Texture* menuScreen = NULL;
 SDL_Texture* treeTexture = NULL;
 SDL_Texture* rabbitTexture = NULL;
 SDL_Texture* boxTexture = NULL;
+SDL_Texture* submittingScore = NULL;
 SDL_Texture* grassTexture = NULL;
+leaderBoard leaderBoard1;
 TTF_Font* pixelFont = NULL;
 backGround mainBackGround;
 bool Direction[8];

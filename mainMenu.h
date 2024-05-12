@@ -4,17 +4,20 @@
 #include<SDL_ttf.h>
 #include"map_process.h"
 #include"background.h"
+#include"playerScore.h"
 #include"entity_control.h"
 #include<vector>
+extern void renderTransparentBlackRectangle(SDL_Renderer* renderer, SDL_Rect const& rect, int alpha);
 extern TTF_Font* pixelFont;
 extern SDL_Renderer* renderer;
 extern int desiredDelta;
 extern std::string playerName;
+extern std::vector<playerScore> leaderBoardList;
 class mainMenu
-{
+{   
     bool menuChoosed = false;
     bool nameInputFlag = true;
-    SDL_Color textColorDefault = { 255,255,255 };
+    SDL_Color textColorDefault = { 255,66,0 };
     SDL_Color textColorStart = { 255, 255, 255 };
     SDL_Color textColorExit = { 255, 255, 255 };
     // Create the menu items
@@ -22,6 +25,7 @@ class mainMenu
     std::string exitGame = "Exit";
     std::string welcomeNameString;
     // Render the menu items
+    SDL_Rect leaderBoardRect;
     SDL_Rect startGameRect;
     SDL_Rect welcomeNameRect;
     SDL_Rect exitGameRect;
@@ -57,10 +61,12 @@ public:
         nameInputRect.w = 0;
         nameInputRect.h = 0;
         menuMapProcess.getChunkList("mapData.json");
+        leaderBoardRect.x = 800;
+        leaderBoardRect.y = 150;
+        leaderBoardRect.w = 400;
+        leaderBoardRect.h = 400;
     }
     int loadMenu() {
-        
-        SDL_SetRenderDrawColor(renderer, 224, 251, 226, 255);
         menuChoose = 0;
         menuChoosed = false;
         menuEntityControl.entityList.clear();
@@ -71,6 +77,7 @@ public:
         menuMapProcess.arrangeObject();
         menuMapProcess.updateCheckList();
         while (menuChoosed == false) {
+            SDL_SetRenderDrawColor(renderer, 224, 251, 226, 255);
             int start_loop = SDL_GetTicks64();
             //render back ground
             menuBackGround.updateChunk(-1);
@@ -83,7 +90,7 @@ public:
 
                 //render welcome name
                 std::string welcomeString = "Welcome " + welcomeNameString;
-                textSurface = TTF_RenderText_Solid(pixelFont, welcomeString.c_str(), textColorDefault);
+                textSurface = TTF_RenderText_Blended(pixelFont, welcomeString.c_str(), textColorDefault);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 welcomeNameRect.w = textSurface->w;
                 welcomeNameRect.h = textSurface->h;
@@ -95,7 +102,7 @@ public:
                 SDL_DestroyTexture(textTexture);
 
                 //render Start Game
-                textSurface = TTF_RenderText_Solid(pixelFont, startGame.c_str(), textColorStart);
+                textSurface = TTF_RenderText_Blended(pixelFont, startGame.c_str(), textColorStart);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 SDL_FreeSurface(textSurface);
                 textRect = startGameRect;
@@ -105,7 +112,7 @@ public:
                 SDL_DestroyTexture(textTexture);
 
                 //render exit game
-                textSurface = TTF_RenderText_Solid(pixelFont, exitGame.c_str(), textColorExit);
+                textSurface = TTF_RenderText_Blended(pixelFont, exitGame.c_str(), textColorExit);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 SDL_FreeSurface(textSurface);
                 textRect = exitGameRect;
@@ -113,6 +120,52 @@ public:
                 //SDL_RenderFillRect(renderer, &exitGameRect);
                 SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
                 SDL_DestroyTexture(textTexture);
+                //render leader board
+                renderTransparentBlackRectangle(renderer, leaderBoardRect, 128);
+                std::string leaderBoardtext = "Leader Board";
+                textSurface = TTF_RenderText_Blended(pixelFont, leaderBoardtext.c_str(), textColorDefault);
+                textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+                SDL_FreeSurface(textSurface);
+                SDL_Rect temp;
+                temp.x = leaderBoardRect.x+20;
+                temp.y = leaderBoardRect.y+20;
+                temp.w = textSurface->w;
+                temp.h = textSurface->h;
+                SDL_QueryTexture(textTexture, NULL, NULL, &temp.w, &temp.h);
+                //SDL_RenderFillRect(renderer, &exitGameRect);
+                SDL_RenderCopy(renderer, textTexture, NULL, &temp);
+                SDL_DestroyTexture(textTexture);
+                //render leader board item
+                int currentY = leaderBoardRect.y+100; // Y position to start drawing text
+                for (int i = 0; i < leaderBoardList.size(); i++) {
+                    // Create surface from the text
+                    SDL_Color textColor = { 255,255,255 };
+                    std::string text = std::to_string(i+1) + ".  " + leaderBoardList.at(i).playerName +"  "+ std::to_string(leaderBoardList.at(i).maxLevel);
+                    SDL_Surface* surface = TTF_RenderText_Blended(pixelFont, text.c_str(), textColor);
+                    if (surface == nullptr) {
+                        SDL_Log("Unable to create text surface: %s\n", TTF_GetError());
+                        continue;
+                    }
+
+                    // Create texture from the surface
+                    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+                    if (texture == nullptr) {
+                        SDL_Log("Unable to create texture from surface: %s\n", SDL_GetError());
+                        SDL_FreeSurface(surface);
+                        continue;
+                    }
+
+                    // Set the rendering space and render the text
+                    SDL_Rect renderQuad = { leaderBoardRect.x+20, currentY, surface->w, surface->h };
+                    SDL_RenderCopy(renderer, texture, nullptr, &renderQuad);
+
+                    // Update the Y position for the next line of text
+                    currentY +=  surface->h+20;
+
+                    // Clean up the surface and texture
+                    SDL_FreeSurface(surface);
+                    SDL_DestroyTexture(texture);
+                }
             }
             if (nameInputFlag == true) {
                 StartTextInput(nameInputRect,renderer,pixelFont);
@@ -205,7 +258,7 @@ public:
         // Render the initial text
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
-        textSurface = TTF_RenderText_Solid(font, inputText.c_str(), textColorDefault);
+        textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
         textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
         SDL_FreeSurface(textSurface);
 
@@ -277,12 +330,12 @@ public:
                 // Text is not empty
                 if (inputText != "") {
                     // Render new text
-                    textSurface = TTF_RenderText_Solid(font, inputText.c_str(), textColorDefault);
+                    textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
                 }
                 // Text is empty
                 else {
                     // Render space texture
-                    textSurface = TTF_RenderText_Solid(font, " ", textColorDefault);
+                    textSurface = TTF_RenderText_Blended(font, " ", textColorDefault);
                 }
                 // Create texture from surface pixels
                 SDL_DestroyTexture(textTexture);
@@ -307,7 +360,8 @@ public:
             menuMapProcess.updateMap(false);
             menuMapProcess.updateMap(true);
             // Render text textures
-            SDL_RenderFillRect(renderer, &backgroundRect);
+            //SDL_RenderFillRect(renderer, &backgroundRect);
+            renderTransparentBlackRectangle(renderer, backgroundRect, 135);
             SDL_RenderCopy(renderer, textTexture, NULL, &inputRect);
 
             // Update screen

@@ -1,6 +1,14 @@
 #pragma once
 #include<chrono>
-
+#include<vector>
+#include"playerScore.h";
+#include<SDL.h>
+#include"leaderBoard.h"
+extern std::vector<playerScore> leaderBoardList;
+extern leaderBoard leaderBoard1;
+extern SDL_Texture* submittingScore;
+extern std::string playerName;
+extern SDL_Renderer* renderer;
 class GameControl
 {
 public:
@@ -26,6 +34,21 @@ public:
 		targetKilled = 0;
 		levelDuration = std::chrono::seconds(30);
 		levelTimeLeft = levelDuration;
+	}
+	void checkForNewHighScore() {
+		for (int i = 0; i < leaderBoardList.size(); i++) {
+			if (highestLevel > leaderBoardList.at(i).maxLevel) {
+				SDL_RenderCopy(renderer, submittingScore, NULL, NULL);
+				SDL_RenderPresent(renderer);
+				playerScore newHighScore;
+				newHighScore.maxLevel = highestLevel;
+				newHighScore.playerName = playerName;
+				leaderBoard1.setLeaderBoard(newHighScore);
+				leaderBoard1.updateLeaderBoard();
+				SDL_Delay(1000);
+				return;
+			}
+		}
 	}
 	void startGame() {
 		gameStart = true;
@@ -57,6 +80,7 @@ public:
 		if (highestLevel < level) {
 			highestLevel = level;
 		}
+		checkForNewHighScore();
 		level++;
 		levelDuration = levelDuration + std::chrono::seconds(5) + std::chrono::seconds(level - int(double(level) * 0.4));
 		targetKilled = 0;
