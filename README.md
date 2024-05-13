@@ -13,7 +13,7 @@ Download the `.msi` installer from the releases page and follow the on-screen in
 
 ## How to Play
 - Navigate using the `WASD` keys.
-- Hold down the left mouse button to start shooting arrows at RABBITS.
+- Hold down the `Left mouse button` to start shooting arrows at RABBITS.
 
 ## Leaderboard Management
 This project uses `curl` for server communication and `nlohmann/json` for JSON data handling to manage the online leaderboard and map data.
