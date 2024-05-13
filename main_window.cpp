@@ -29,6 +29,10 @@ bool InitWindow() {
 					success_state = false;
 					printf("SDL_ttf could not initialize! %s\n ", TTF_GetError());
 				}
+				SDL_Surface* icon = IMG_Load("resources/icon.png");
+				SDL_SetWindowIcon(main_window, icon);
+				SDL_FreeSurface(icon);
+				icon = NULL;
 			}
 
 		}

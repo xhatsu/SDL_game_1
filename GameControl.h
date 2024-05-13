@@ -82,12 +82,15 @@ public:
 		}
 		checkForNewHighScore();
 		level++;
-		levelDuration = levelDuration + std::chrono::seconds(10) + std::chrono::seconds(level - int(double(level) * 0.4));
 		targetKilled = 0;
 		gameStart = false;
-		levelTarget += 5;
+		levelTarget = 5 + level*3 + 2;
+		levelDuration = std::chrono::seconds(30) + std::chrono::seconds(levelTarget) + std::chrono::seconds(level - int(double(level) * 0.4));
 		levelTimeLeft = levelDuration;
-		targetSpeed = targetSpeed + int(double(level) / 5);
+		targetSpeed = 1 + int(double(level) / 3);
+		if (level % 5 == 0) {
+			targetSpeed++;
+		}
 	}
 	void resetGame() {
 		level = 1;

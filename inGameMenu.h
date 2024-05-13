@@ -50,6 +50,13 @@ public:
 		std::string levelString = "Level: " + std::to_string(currentLevel);
 		int minute = timeLeft / 60;
 		int second = timeLeft - minute * 60;
+		std::string secondString;
+		if (second >= 10) {
+			secondString = std::to_string(second);
+		}
+		else  {
+			secondString = "0" + std::to_string(second);
+		}
 		std::string timeLeftString = "Time left: " + std::to_string(minute) + ":" + std::to_string(second);
 		std::string killedString = "Target: " + std::to_string(targetKilled) + "/" + std::to_string(levelTarget);
 

@@ -37,7 +37,6 @@ void correctDirection() {
 SDL_Texture* loadTexture(std::string path) {
 	//define optimized surface
 	SDL_Texture* newTexture = NULL;
-
 	//load surface from image
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL) {

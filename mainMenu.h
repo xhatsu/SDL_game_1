@@ -23,6 +23,7 @@ class mainMenu
     // Create the menu items
     std::string startGame= "Start Game";
     std::string exitGame = "Exit";
+    std::string HowToPlayMenu = "How to play";
     std::string welcomeNameString;
     // Render the menu items
     SDL_Rect leaderBoardRect;
@@ -40,7 +41,7 @@ public:
     mainMenu() {
         printf("\n main menu class init");
         welcomeNameString = "ANONYMOUS";
-        welcomeNameRect.x = 250;
+        welcomeNameRect.x = 200;
         welcomeNameRect.y = 300;
         welcomeNameRect.w = 0;
         welcomeNameRect.h = 0;
@@ -303,8 +304,10 @@ public:
                     else if (e.key.keysym.sym == 13) {
                         printf("xx");
                         quit = true;
-                        playerName = inputText;
-                        printf( inputText.c_str());
+                        if (typed == true) {
+                            playerName = inputText;
+                            printf(inputText.c_str());
+                        }
                     }
                     // Handle copy
                     else if (e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL) {
