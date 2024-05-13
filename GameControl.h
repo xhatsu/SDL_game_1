@@ -84,15 +84,14 @@ public:
 		level++;
 		levelDuration = levelDuration + std::chrono::seconds(10) + std::chrono::seconds(level - int(double(level) * 0.4));
 		targetKilled = 0;
-		levelTarget += 5;
-		spawnRate = 0.1 - double(level) * 0.01;
 		gameStart = false;
+		levelTarget += 5;
 		levelTimeLeft = levelDuration;
 		targetSpeed = targetSpeed + int(double(level) / 5);
 	}
 	void resetGame() {
 		level = 1;
-		spawnRate = 0.1;
+		spawnRate = 0.05;
 		gameStart = false;
 		levelTarget = 5;
 		targetKilled = 0;

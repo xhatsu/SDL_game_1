@@ -249,8 +249,7 @@ public:
         backgroundRect.y = inputRect.y;
         backgroundRect.w = inputRect.w;
         backgroundRect.h = inputRect.h;
-        SDL_Rect nextBackGroundRect = {1280/2-100,backgroundRect.y,backgroundRect.w,backgroundRect.h};
-        
+        SDL_Rect nextBackGroundRect = {1280/2-100,backgroundRect.y-50,backgroundRect.w,backgroundRect.h};
         SDL_StartTextInput();
         SDL_SetTextInputRect(&inputRect);
 
@@ -259,7 +258,7 @@ public:
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         // The input text
         std::string inputText = "Enter Your Name Here";
-
+        std::string EnterToConfirm = " Press Enter to Confirm";
         // Render the initial text
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
@@ -361,6 +360,17 @@ public:
             renderTransparentBlackRectangle(renderer, backgroundRect, 135);
             SDL_RenderCopy(renderer, textTexture, NULL, &inputRect);
             SDL_DestroyTexture(textTexture);
+            //render enter to confirm
+            textSurface = TTF_RenderText_Blended(font, EnterToConfirm.c_str(), textColorDefault);
+            nextBackGroundRect.w=textSurface->w;
+            nextBackGroundRect.h=textSurface->h;
+            nextBackGroundRect.x= (1280 - nextBackGroundRect.w) / 2;
+            nextBackGroundRect.y = (720 - nextBackGroundRect.h) / 2+50;
+            SDL_DestroyTexture(textTexture);
+            textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+            SDL_FreeSurface(textSurface);
+            textSurface = NULL;
+            SDL_RenderCopy(renderer, textTexture, NULL, &nextBackGroundRect);
             // Update screen
             SDL_RenderPresent(renderer);
             int delta = SDL_GetTicks() - start_loop;
