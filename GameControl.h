@@ -85,7 +85,7 @@ public:
 		targetKilled = 0;
 		gameStart = false;
 		levelTarget = 5 + level*3 + 2;
-		levelDuration = std::chrono::seconds(30) + std::chrono::seconds(levelTarget) + std::chrono::seconds(level - int(double(level) * 0.4));
+		levelDuration = std::chrono::seconds(30) + std::chrono::seconds(10) + std::chrono::seconds(levelTarget * 2) + std::chrono::seconds(level - int(double(level) * 0.4));
 		levelTimeLeft = levelDuration;
 		targetSpeed = 1 + int(double(level) / 3);
 		if (level % 5 == 0) {

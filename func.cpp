@@ -119,18 +119,12 @@ double angleCaluculate(int corX, int corY) {
 }
 void renderTransparentBlackRectangle(SDL_Renderer* renderer, SDL_Rect const & rect,int alpha) {
 	// Save the current draw color
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
-
-	// Set the blend mode for the renderer to blend the alpha channel
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-
-	// Set the draw color to black with 50% transparency
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, alpha);
-
-	// Render the rectangle
+	SDL_Color tempC;
+	SDL_GetRenderDrawColor(renderer, &tempC.r, &tempC.g, &tempC.b, &tempC.a);
+	SDL_Rect outRect = { rect.x - 3,rect.y - 3,rect.w + 6,rect.h + 6 };
+	SDL_SetRenderDrawColor(renderer, 0, 105, 103, 255);
+	SDL_RenderFillRect(renderer, &outRect);
+	SDL_SetRenderDrawColor(renderer, 64, 165, 120, 255);
 	SDL_RenderFillRect(renderer, &rect);
-
-	// Restore the original draw color
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
+	SDL_SetRenderDrawColor(renderer, tempC.r, tempC.g, tempC.b, tempC.a);
 }

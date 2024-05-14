@@ -17,15 +17,16 @@ class mainMenu
 {   
     bool menuChoosed = false;
     bool nameInputFlag = true;
-    SDL_Color textColorDefault = { 255,66,0 };
-    SDL_Color textColorStart = { 255, 255, 255 };
-    SDL_Color textColorExit = { 255, 255, 255 };
+    SDL_Color textColorDefault = { 255,255,255 };
+    SDL_Color textColorStart = { 93,235,215 };
+    SDL_Color textColorExit = { 93,235,215 };
+    TTF_Font* welcomeFont;
     // Create the menu items
     std::string startGame= "Start Game";
     std::string exitGame = "Exit";
     std::string HowToPlayMenu = "How to play";
     std::string welcomeNameString;
-    // Render the menu items
+    // menu item rect
     SDL_Rect leaderBoardRect;
     SDL_Rect startGameRect;
     SDL_Rect welcomeNameRect;
@@ -39,22 +40,23 @@ class mainMenu
 public:
     int menuChoose = 0;
     mainMenu() {
+        welcomeFont = TTF_OpenFont("resources/Bandar.ttf", 48);
         printf("\n main menu class init");
         welcomeNameString = "ANONYMOUS";
-        welcomeNameRect.x = 200;
-        welcomeNameRect.y = 300;
+        welcomeNameRect.x = 100;
+        welcomeNameRect.y = 100;
         welcomeNameRect.w = 0;
         welcomeNameRect.h = 0;
         nameInputRect.x = 400;
         nameInputRect.y = 400;
         nameInputRect.w = 200;
         nameInputRect.h = 200;
-        startGameRect.x = 300;
-        startGameRect.y = 400;
+        startGameRect.x = 200;
+        startGameRect.y = 300;
         startGameRect.w = 180;
         startGameRect.h = 30;
-        exitGameRect.x = 300;
-        exitGameRect.y = 500;
+        exitGameRect.x = 200;
+        exitGameRect.y = 450;
         exitGameRect.w = 80;
         exitGameRect.h = 30;
         nameInputRect.x = (1280 - 200) / 2;
@@ -65,9 +67,12 @@ public:
         menuMapProcess.getChunkList("mapData.json");
         printf("mapData loaded");
         leaderBoardRect.x = 800;
-        leaderBoardRect.y = 150;
+        leaderBoardRect.y = 200;
         leaderBoardRect.w = 400;
         leaderBoardRect.h = 400;
+    }
+    ~mainMenu() {
+        TTF_CloseFont(welcomeFont);
     }
     int loadMenu() {
         menuChoose = 0;
@@ -90,10 +95,10 @@ public:
             // Render the menu items
             if (nameInputFlag==false) {
                 SDL_Rect textRect;
-
+                SDL_Color tempC;
                 //render welcome name
                 std::string welcomeString = "Welcome " + welcomeNameString + " to Hunt 2D";
-                textSurface = TTF_RenderText_Blended(pixelFont, welcomeString.c_str(), textColorDefault);
+                textSurface = TTF_RenderText_Blended(welcomeFont, welcomeString.c_str(), textColorDefault);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 welcomeNameRect.w = textSurface->w;
                 welcomeNameRect.h = textSurface->h;
@@ -106,27 +111,58 @@ public:
 
                 //render Start Game
                 textSurface = TTF_RenderText_Blended(pixelFont, startGame.c_str(), textColorStart);
+                startGameRect.w = textSurface->w + 10;
+                startGameRect.h = textSurface->h + 10;
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 SDL_FreeSurface(textSurface);
                 textRect = startGameRect;
+                textRect.x = startGameRect.x + 5;
+                textRect.y = startGameRect.y + 5;
                 SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
-                //SDL_RenderFillRect(renderer, &startGameRect);
+                SDL_GetRenderDrawColor(renderer, &tempC.r, &tempC.g, &tempC.b, &tempC.a);
+                SDL_Rect outRect = { startGameRect.x - 3,startGameRect.y - 3,startGameRect.w + 6,startGameRect.h + 6 };
+                SDL_SetRenderDrawColor(renderer, 0, 105, 103, 255);
+                SDL_RenderFillRect(renderer, &outRect);
+                SDL_SetRenderDrawColor(renderer, 64, 165, 120, 255); 
+                SDL_RenderFillRect(renderer, &startGameRect);
+                SDL_SetRenderDrawColor(renderer, tempC.r, tempC.g, tempC.b, tempC.a);
                 SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+
                 SDL_DestroyTexture(textTexture);
 
                 //render exit game
                 textSurface = TTF_RenderText_Blended(pixelFont, exitGame.c_str(), textColorExit);
+                exitGameRect.w = textSurface->w + 10;
+                exitGameRect.h = textSurface->h + 10;
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 SDL_FreeSurface(textSurface);
                 textRect = exitGameRect;
+                textRect.x = exitGameRect.x + 5;
+                textRect.y = exitGameRect.y + 5;
                 SDL_QueryTexture(textTexture, NULL, NULL, &textRect.w, &textRect.h);
+                SDL_GetRenderDrawColor(renderer, &tempC.r, &tempC.g, &tempC.b, &tempC.a);
+                SDL_Rect exitoutRect = { exitGameRect.x - 3,exitGameRect.y - 3,exitGameRect.w + 6,exitGameRect.h + 6 };
+                SDL_SetRenderDrawColor(renderer, 0, 105, 103, 255);
+                SDL_RenderFillRect(renderer, &exitoutRect);
+                SDL_SetRenderDrawColor(renderer, 64, 165, 120, 255);
+                SDL_RenderFillRect(renderer, &exitGameRect);
+                SDL_SetRenderDrawColor(renderer, tempC.r, tempC.g, tempC.b, tempC.a);
                 //SDL_RenderFillRect(renderer, &exitGameRect);
                 SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
                 SDL_DestroyTexture(textTexture);
                 //render leader board
-                renderTransparentBlackRectangle(renderer, leaderBoardRect, 128);
+                SDL_GetRenderDrawColor(renderer, &tempC.r, &tempC.g, &tempC.b, &tempC.a);
+                SDL_Rect LBoutRect = { leaderBoardRect.x - 3,leaderBoardRect.y - 3,leaderBoardRect.w + 6,leaderBoardRect.h + 6 };
+                SDL_SetRenderDrawColor(renderer, 0, 105, 103, 255);
+                SDL_RenderFillRect(renderer, &LBoutRect);
+                SDL_SetRenderDrawColor(renderer, 64, 165, 120, 255);
+                SDL_RenderFillRect(renderer, &leaderBoardRect);
+                SDL_SetRenderDrawColor(renderer, tempC.r, tempC.g, tempC.b, tempC.a);
+                //renderTransparentBlackRectangle(renderer, leaderBoardRect, 128);
                 std::string leaderBoardtext = "Leader Board";
-                textSurface = TTF_RenderText_Blended(pixelFont, leaderBoardtext.c_str(), textColorDefault);
+                SDL_Color LBfontColor = {0,103,105};
+                SDL_Color whiteFontColor = { 255,255,255 };
+                textSurface = TTF_RenderText_Blended(pixelFont, leaderBoardtext.c_str(), whiteFontColor);
                 textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
                 SDL_FreeSurface(textSurface);
                 SDL_Rect temp;
@@ -142,7 +178,7 @@ public:
                 int currentY = leaderBoardRect.y+100; // Y position to start drawing text
                 for (int i = 0; i < leaderBoardList.size(); i++) {
                     // Create surface from the text
-                    SDL_Color textColor = { 255,255,255 };
+                    SDL_Color textColor = { 0,103,105 };
                     std::string text = std::to_string(i+1) + ".  " + leaderBoardList.at(i).playerName +"  "+ std::to_string(leaderBoardList.at(i).maxLevel);
                     SDL_Surface* surface = TTF_RenderText_Blended(pixelFont, text.c_str(), textColor);
                     if (surface == nullptr) {
@@ -195,24 +231,24 @@ public:
                     mouse.x = x;
                     mouse.y = y;
                     if (SDL_PointInRect(&mouse, &startGameRect)) {
-                        textColorStart.r = 225;
-                        textColorStart.g = 10;
-                        textColorStart.b = 10;
-                    }
-                    else {
                         textColorStart.r = 255;
                         textColorStart.g = 255;
                         textColorStart.b = 255;
                     }
+                    else {
+                        textColorStart.r = 93;
+                        textColorStart.g = 235;
+                        textColorStart.b = 215;
+                    }
                     if (SDL_PointInRect(&mouse, &exitGameRect)) {
                         textColorExit.r = 225;
-                        textColorExit.g = 10;
-                        textColorExit.b = 10;
-                    }
-                    else {
-                        textColorExit.r = 255;
                         textColorExit.g = 255;
                         textColorExit.b = 255;
+                    }
+                    else {
+                        textColorExit.r = 93;
+                        textColorExit.g = 235;
+                        textColorExit.b = 215;
                     }
                 }
                 if (event_input.type == SDL_MOUSEBUTTONDOWN) {
@@ -245,6 +281,7 @@ public:
         return menuChoose;
     }
     void StartTextInput(SDL_Rect inputRect, SDL_Renderer* renderer, TTF_Font* font) {
+        SDL_Color inputColor = { 93,235,215 };
         SDL_Rect backgroundRect;
         backgroundRect.x = (1280 - 200) / 2;
         backgroundRect.y = inputRect.y;
@@ -259,11 +296,11 @@ public:
         SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
         // The input text
         std::string inputText = "Enter Your Name Here";
-        std::string EnterToConfirm = " Press Enter to Confirm";
+        std::string EnterToConfirm = "Press Enter to Confirm";
         // Render the initial text
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
-        textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
+        textSurface = TTF_RenderText_Blended(font, inputText.c_str(), inputColor);
         textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
         SDL_FreeSurface(textSurface);
 
@@ -296,10 +333,15 @@ public:
                     if (e.key.keysym.sym == SDLK_ESCAPE) {
                         quit = true;
                     }
-                    else if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0) {
+                    else if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.size() > 0&& typed ==true) {
                         // Remove character from the end
                         inputText.pop_back();
                         renderText = true;
+                        printf("backspace");
+                        if (inputText.size() <= 0) {
+                            inputText = "Enter Your Name Here";
+                            typed = false;
+                        }
                     }
                     else if (e.key.keysym.sym == 13) {
                         printf("xx");
@@ -336,7 +378,8 @@ public:
             if (quit == true) {
                 printf(inputText.c_str());
             }
-            textSurface = TTF_RenderText_Blended(font, inputText.c_str(), textColorDefault);
+            //create texture from curernt text
+            textSurface = TTF_RenderText_Blended(font, inputText.c_str(), inputColor);
             SDL_DestroyTexture(textTexture);
             textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
             //set input rect
@@ -368,7 +411,7 @@ public:
             nextBackGroundRect.w=textSurface->w;
             nextBackGroundRect.h=textSurface->h;
             nextBackGroundRect.x= (1280 - nextBackGroundRect.w) / 2;
-            nextBackGroundRect.y = (720 - nextBackGroundRect.h) / 2+50;
+            nextBackGroundRect.y = (720 - nextBackGroundRect.h) / 2+75;
             SDL_DestroyTexture(textTexture);
             textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
             SDL_FreeSurface(textSurface);

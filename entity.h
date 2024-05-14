@@ -11,7 +11,8 @@ extern SDL_Point charCol;
 extern SDL_Texture* rabbitTexture;
 enum entityType {
 	rabbit = 0,
-	arrowType = 12
+	arrowType = 12,
+	flashRabbit =57
 };
 class entity
 {

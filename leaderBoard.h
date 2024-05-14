@@ -16,7 +16,7 @@ extern std::vector<playerScore> leaderBoardList;
 class leaderBoard
 {
 public:
-	std::string apiLBIndentifier = "daf40bf0-105b-11ef-bc53-59e8e73b3d77";
+	std::string apiLBIndentifier = "91a24a10-1151-11ef-bc53-59e8e73b3d77";
 	//std::vector<playerScore> leaderBoardList;
 	bool requestState=false;
 	std::string jsonData;

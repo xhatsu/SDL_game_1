@@ -26,9 +26,9 @@ int main(int argc, char* args[]) {
 			mainMenu mainMenu1;
 			printf("\n leaderboard init");
 			leaderBoard leaderBoard1;
-			//leaderBoard1.deleteLB();
 			leaderBoard1.getLeaderBoard();
 			leaderBoard1.updateLeaderBoard();
+
 			//loading
 			SDL_RenderCopy(renderer, loadingScreen, NULL, NULL);
 			//main char texture initialize

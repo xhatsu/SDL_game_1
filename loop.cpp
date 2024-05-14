@@ -78,6 +78,23 @@ void loop() {
 			}
 			//movement handle
 			if (game1.gameStart == false) {
+				if (event_input.type == SDL_MOUSEMOTION) {
+					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
+					SDL_Point mouse;
+					mouse.x = mouseX;
+					mouse.y = mouseY;
+					if (SDL_PointInRect(&mouse, &inGameMenu1.startLevelButton)) {
+						inGameMenu1.startButtonColor.r = 35;
+						inGameMenu1.startButtonColor.g = 172;
+						inGameMenu1.startButtonColor.b = 38;
+						
+					}
+					else {
+						inGameMenu1.startButtonColor.r = 138;
+						inGameMenu1.startButtonColor.g = 200;
+						inGameMenu1.startButtonColor.b = 202;
+					}
+				}
 				if (event_input.type == SDL_MOUSEBUTTONDOWN) {
 					mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 					SDL_Point mouse;
@@ -148,8 +165,8 @@ void loop() {
 					if (key_state[SDL_SCANCODE_L]) {
 						int x = charCol.x;
 						int y = charCol.y;
-						entity test = entity(x, y, rabbit,eMOVING,1);
-						mapEntityControl.entityList.push_back(test);
+						//entity test = entity(x, y, flashRabbit,eMOVING,1);
+						//mapEntityControl.entityList.push_back(test);
 					}
 					if (key_state[SDL_SCANCODE_T]) {
 						game1.startGame();

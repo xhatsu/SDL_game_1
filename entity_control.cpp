@@ -26,9 +26,13 @@ void entityControl::listArrowHitCheck(int& hitNumber) {
 	for (int i = 0; i < entityList.size(); i++) {
 		for (int j = 0; j < arrowList.size(); j++) {
 			if (arrowHitCheck(arrowList.at(j), entityList.at(i))) {
+				if (entityList.at(i).type == flashRabbit) {
+					hitNumber += 4;
+				}
+				hitNumber++;
 				entityList.erase(entityList.begin()+i);
 				arrowList.erase(arrowList.begin() + j);
-				hitNumber++;
+				;
 			}
 		}
 	}
@@ -40,8 +44,15 @@ void entityControl::spawnRandomEntity(int eSpeed,bool isStarted,int colX, int co
 	if (entityList.size() >= 128) {
 		return;
 	}
+	
 	int x = colX + rand() % spawnRange - spawnRange/2;
 	int y = colY + rand() % spawnRange - spawnRange/2;
+	int flr = rand() % 3000;
+	if (flr == 4) {
+		entity test = entity(x, y, flashRabbit, eMOVING, eSpeed);
+		entityList.push_back(test);
+		return;
+	}
 	double randomNum = rand() % 100;
 	if (randomNum / 100 < spawnRate) {
 		entity test = entity(x, y, rabbit, eMOVING,eSpeed);

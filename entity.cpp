@@ -19,6 +19,17 @@ entity::entity(int x=0, int y=0, int type=rabbit,int state = eSTANDING,int speed
 		objectDefaultTextureRect.w = 36;
 		objectDefaultTextureRect.h = 36;
 		break;
+	case flashRabbit:
+		this->speed = 10;
+		ObjPlaceHolder.w = 32;
+		ObjPlaceHolder.h = 32;
+		ObjPlaceHolder.x = ObjCol.x;
+		ObjPlaceHolder.y = ObjCol.y;
+		objectDefaultTextureRect.x = 0;
+		objectDefaultTextureRect.y = 0;
+		objectDefaultTextureRect.w = 36;
+		objectDefaultTextureRect.h = 36;
+		break;
 	default:
 		break;
 	}
@@ -105,7 +116,10 @@ void entity::updateEntity() {
 	}
 	if (delayAction%100==1) {
 		int temp = rand() % 3;
-		if (temp == 2) {
+		if (type == flashRabbit) {
+			temp = rand()%2;
+		}
+		if (temp == 1) {
 			delayAction = 0;
 			state = eSTART;
 			direction = rand() % 4;
@@ -117,6 +131,11 @@ void entity::loadEntity(SDL_Renderer* renderer) {
 	switch (type)
 	{
 	case rabbit:
+		//printf("\nsize: %d", int(objectTexturePollList.size()));
+		//SDL_RenderDrawRect(renderer, &objectRenderCordinate);
+		SDL_RenderCopy(renderer, rabbitTexture, &object_texture_rect, &objectRenderCordinate);
+		break;
+	case flashRabbit:
 		//printf("\nsize: %d", int(objectTexturePollList.size()));
 		//SDL_RenderDrawRect(renderer, &objectRenderCordinate);
 		SDL_RenderCopy(renderer, rabbitTexture, &object_texture_rect, &objectRenderCordinate);
@@ -144,7 +163,7 @@ void entity::moveEntity(int direction) {
 	}
 }
 void entity::setObjRenderCordinate() {
-	if (type == rabbit) {
+	if (type == rabbit||type==flashRabbit) {
 		int prefix_X = ObjCol.x - charCol.x;
 		int prefix_Y = ObjCol.y - charCol.y;
 		objectRenderCordinate.x = middle_screen.x + prefix_X - object_texture_rect.w / 2;

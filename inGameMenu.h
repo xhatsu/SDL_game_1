@@ -14,14 +14,18 @@ public:
 	SDL_Rect startLevelButton;
 	SDL_Surface* textSurface=NULL;
 	SDL_Texture* textTexture=NULL;
+	SDL_Color startButtonColor;
 	int currentLevel;
 	int levelTarget;
 	int timeLeft;
 	int targetKilled;
 	int highestLevel=0;
 	inGameMenu(int level,int time,int target) {
-		topLeftInfo.x = 0;
-		topLeftInfo.y = 0;
+		startButtonColor.r = 138;
+		startButtonColor.g = 200;
+		startButtonColor.b = 202;
+		topLeftInfo.x = 3;
+		topLeftInfo.y = 3;
 		topLeftInfo.w = 300;
 		topLeftInfo.h = 110;
 		startLevelInfo.x = 384;
@@ -135,8 +139,14 @@ public:
 		SDL_DestroyTexture(textTexture);
 		SDL_FreeSurface(textSurface);
 		//render start button
-		SDL_SetRenderDrawColor(renderer, 0, 255, 127,128);
+		SDL_Color tempC;
+		SDL_GetRenderDrawColor(renderer, &tempC.r, &tempC.g, &tempC.b, &tempC.a);
+		SDL_Rect outRect = { startLevelButton.x - 3,startLevelButton.y - 3,startLevelButton.w + 6,startLevelButton.h + 6 };
+		SDL_SetRenderDrawColor(renderer, 0, 105, 103, 255);
+		SDL_RenderFillRect(renderer, &outRect);
+		SDL_SetRenderDrawColor(renderer, startButtonColor.r, startButtonColor.g, startButtonColor.b, 255);
 		SDL_RenderFillRect(renderer, &startLevelButton);
+		SDL_SetRenderDrawColor(renderer, tempC.r, tempC.g, tempC.b, tempC.a);
 		std::string startLevel = "Start Level";
 		textRect.x = startLevelButton.x+5;
 		textRect.y = startLevelButton.y+15;
