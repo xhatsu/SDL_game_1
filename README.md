@@ -16,4 +16,6 @@ Download the `.msi` installer from the releases page and follow the on-screen in
 - Hold down the `Left mouse button` to start shooting arrows at RABBITS.
 
 ## Leaderboard Management
-This project uses `curl` for server communication and `nlohmann/json` for JSON data handling to manage the online leaderboard and map data.
+This project uses `curl` for server communication and `nlohmann/json` for JSON data handling to manage the online leaderboard.
+## Software and Assets
+This game control rendering with `SDL2` and other SDL extension and free asset from `Itch.io` , `OpenGameArt.org`, `https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator`. 
